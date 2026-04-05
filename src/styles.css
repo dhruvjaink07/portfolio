@@ -1091,7 +1091,6 @@ html.light-theme #bg-canvas {
     grid-template-columns: 200px 1fr;
     gap: var(--spacing-xl);
     color: var(--color-text);
-    overflow: hidden;
 }
 
 .profile-card .btn-primary {
@@ -1426,6 +1425,12 @@ html.light-theme #bg-canvas {
     width: 100%;
     display: block;
     mix-blend-mode: var(--blend-mode, normal); /* Optional for dark mode adjustment */
+}
+
+@media (max-width: 768px) {
+    .github-graph-container img {
+        min-width: 360px;
+    }
 }
 
 /* ===================================
@@ -1984,20 +1989,34 @@ html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #006
 
     /* Profile card stacks vertically */
     .profile-card {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         text-align: center;
         padding: var(--spacing-md);
-        display: flex;
-        flex-direction: column;
+        display: flex !important;
+        flex-direction: column !important;
         align-items: center;
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     .profile-info {
         width: 100%;
         max-width: 100%;
+        min-width: 0;
         word-wrap: break-word;
         overflow-wrap: break-word;
+    }
+
+    .profile-name,
+    .profile-title,
+    .profile-bio,
+    .experience-details h4,
+    .experience-company,
+    .experience-period,
+    .experience-description {
+        overflow-wrap: anywhere;
+        word-break: break-word;
     }
 
     .profile-image-container {
@@ -2005,6 +2024,25 @@ html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #006
         width: 160px;
         height: 220px;
         flex-shrink: 0;
+    }
+
+    .content-grid,
+    .left-column,
+    .right-column,
+    .section-card,
+    .experience-item,
+    .projects-header,
+    .contact-grid {
+        min-width: 0;
+    }
+
+    .section-card,
+    .experience-item,
+    .contact-card,
+    .skill-card,
+    .project-card {
+        width: 100%;
+        max-width: 100%;
     }
     
     .profile-name {
@@ -2840,5 +2878,25 @@ html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #006
 
     .contact-form-section {
         padding: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 1024px) {
+    .left-column,
+    .right-column,
+    .profile-info,
+    .section-card,
+    .experience-item,
+    .projects-grid,
+    .skills-cards-grid,
+    .contact-grid {
+        min-width: 0;
+    }
+
+    .profile-name,
+    .profile-title,
+    .profile-bio {
+        overflow-wrap: anywhere;
+        word-break: break-word;
     }
 }
