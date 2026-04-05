@@ -32,13 +32,16 @@
         rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
 
-  <script type="module" crossorigin src="/assets/index-B6jLBbZD.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Cr8B2G0K.css">
+  <script type="module" crossorigin src="/assets/index-qETmyaQ6.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B4BZX3Vv.css">
 </head>
 
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
+    <!-- Interactive WebGL/Canvas Background -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
     <!-- Floating Theme Toggle -->
     <button id="theme-toggle" class="floating-theme-toggle" aria-label="Toggle Dark Mode">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
@@ -107,6 +110,23 @@
                 <span>Contact</span>
             </a>
         </nav>
+
+        <!-- Live Status Widget -->
+        <div class="live-status">
+            <h4 class="live-status-title">SYSTEM STATUS</h4>
+            <div class="live-item">
+                <span class="live-dot pulse"></span>
+                <span id="live-time" class="live-text">00:00:00</span>
+            </div>
+            <div class="live-item">
+                <span class="live-icon">⛅</span>
+                <span id="live-weather" class="live-text">Fetching Weather...</span>
+            </div>
+            <div class="live-item">
+                <span class="live-icon">💻</span>
+                <span id="live-waka" class="live-text">Coding in VS Code</span>
+            </div>
+        </div>
     </aside>
 
     <!-- Main Content Area -->
@@ -315,8 +335,8 @@
             <div class="terminal-header">
                 <div class="terminal-buttons">
                     <span class="terminal-btn red" id="term-close"></span>
-                    <span class="terminal-btn yellow"></span>
-                    <span class="terminal-btn green"></span>
+                    <span class="terminal-btn yellow" id="term-minimize"></span>
+                    <span class="terminal-btn green" id="term-maximize"></span>
                 </div>
                 <div class="terminal-title">dhruv@portfolio: ~</div>
             </div>
