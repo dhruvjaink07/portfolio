@@ -248,7 +248,10 @@
                 </div>
 
                 <div class="contact-form-section">
-                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xpqabavv" method="POST">
+                    <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                        <!-- REPLACE WITH YOUR WEB3FORMS ACCESS KEY -->
+                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                        
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" placeholder="Your name" required>

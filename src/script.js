@@ -828,3 +828,73 @@ function setupExternalLinks() {
         }
     });
 }
+
+// ===================================
+// CUSTOM MAGNETIC CURSOR
+// ===================================
+function initCursor() {
+    // Only init on non-touch devices
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    const cursorDot = document.createElement('div');
+    cursorDot.classList.add('cursor-dot');
+    document.body.appendChild(cursorDot);
+
+    const cursorOutline = document.createElement('div');
+    cursorOutline.classList.add('cursor-outline');
+    document.body.appendChild(cursorOutline);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Instant dot positioning
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+    });
+
+    // Smooth trailing outline animation
+    function animateCursor() {
+        let distX = mouseX - outlineX;
+        let distY = mouseY - outlineY;
+        
+        outlineX += distX * 0.15; // easing
+        outlineY += distY * 0.15;
+
+        cursorOutline.style.left = `${outlineX}px`;
+        cursorOutline.style.top = `${outlineY}px`;
+
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Dynamically re-bind hover states when pages swap or JS re-renders
+    const observer = new MutationObserver(() => {
+        const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .project-card, .skill-card, .social-link');
+        
+        interactiveElements.forEach(el => {
+            // Guard against duplicate listeners
+            if(el.dataset.cursorBound) return;
+            el.dataset.cursorBound = "true";
+
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('cursor-hovering');
+                cursorDot.classList.add('cursor-hovering-dot');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('cursor-hovering');
+                cursorDot.classList.remove('cursor-hovering-dot');
+            });
+        });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
+// Start custom cursor
+document.addEventListener('DOMContentLoaded', () => setTimeout(initCursor, 100));
