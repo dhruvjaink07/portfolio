@@ -17,6 +17,7 @@ const SOCIAL_ICONS = {
 // ===================================
 function initializeApp() {
     if (!portfolioData) return;
+    initEasterEggs();
 
     // Render all pages
     renderHomePage();
@@ -744,6 +745,57 @@ function showNoResults(containerId, visibleCount, message) {
         noResultsDiv.textContent = message;
         container.appendChild(noResultsDiv);
     }
+}
+
+// ===================================
+// EASTER EGGS
+// ===================================
+function initEasterEggs() {
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                activateKonamiMode();
+                konamiIndex = 0;
+            }
+        } else {
+            konamiIndex = 0;
+            // Retry checking first key in case of mistake overlap
+            if (e.key === konamiCode[0]) {
+                konamiIndex = 1;
+            }
+        }
+    });
+
+    // 5 Clicks on Profile Easter Egg
+    const profileImg = document.getElementById('profile-image');
+    if (profileImg) {
+        let clickCount = 0;
+        profileImg.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 5) {
+                profileImg.style.animation = 'spin 1s cubic-bezier(0.4, 0.0, 0.2, 1)';
+                setTimeout(() => {
+                    profileImg.style.animation = '';
+                }, 1000);
+                alert("Do a barrel roll! 🛩");
+                clickCount = 0;
+            }
+            setTimeout(() => { clickCount = 0 }, 2000);
+        });
+    }
+}
+
+function activateKonamiMode() {
+    alert("🚀 KONAMI CODE ACTIVATED! 🚀\nWelcome to Developer Level 99");
+    document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+    document.body.style.transition = 'filter 2s ease-in-out';
+    setTimeout(() => {
+        document.body.style.filter = '';
+    }, 10000);
 }
 
 // ===================================
