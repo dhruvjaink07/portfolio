@@ -1,0 +1,236 @@
+{
+  "profile": {
+    "name": "Dhruv Jain",
+    "title": "Mobile App Developer | Flutter Developer",
+    "bio": "Aspiring Flutter Developer passionate about creating user-friendly mobile applications. Eager to enhance skills in app development, UI/UX design, and app distribution. Committed to continuous learning and growth in mobile technology. Dedicated to delivering high-quality applications with exceptional user experiences.",
+    "image": "assets/styled-profile.png",
+    "stats": {
+      "experience": "1+",
+      "rating": "95.58%",
+      "jobSuccess": "Diploma",
+      "projects": 3
+    },
+    "social": {
+      "twitter": "https://x.com/djain007",
+      "linkedin": "https://www.linkedin.com/in/dhruv-jain-0ab564251/",
+      "github": "https://github.com/dhruvjaink07",
+      "instagram": "https://instagram.com"
+    },
+    "cv": "assets/resume.pdf"
+  },
+  "workExperience": [
+    {
+      "id": 1,
+      "company": "Digilateral Solutions",
+      "role": "Mobile App Developer Intern",
+      "period": "JANUARY 2024 - JULY 2024",
+      "description": "Developed mobile apps using Flutter with multiple API integration. Collaborated with the design team to make user-friendly apps. Deployed and distributed apps on AppStore and PlayStore."
+    },
+    {
+      "id": 2,
+      "company": "Vidyavardhini College of Engineering & Technology",
+      "role": "Computer Engineering Student",
+      "period": "2024 - PRESENT",
+      "description": "Pursuing Bachelor's degree in Computer Engineering. Focusing on mobile app development, software engineering principles, and modern development practices."
+    },
+    {
+      "id": 3,
+      "company": "Government Polytechnic Mumbai",
+      "role": "Computer Engineering Diploma",
+      "period": "2021 - 2024",
+      "description": "Completed Diploma in Computer Engineering with 95.58% score. Specialized in mobile application development and software programming fundamentals."
+    }
+  ],
+  "endorsements": [
+    {
+      "id": 1,
+      "name": "Digilateral Solutions Team",
+      "title": "Development Team Lead",
+      "verified": true,
+      "testimonial": "Dhruv is a dedicated and quick learner who consistently delivered quality work during his internship. His Flutter development skills and ability to collaborate with the design team made him a valuable asset to our projects.",
+      "linkedinRecommendations": 5
+    },
+    {
+      "id": 2,
+      "name": "Project Mentor",
+      "title": "Senior Mobile Developer",
+      "verified": true,
+      "testimonial": "Working with Dhruv on the Neuro iPad app was excellent. He demonstrated strong technical skills in Flutter and showed great attention to detail in implementing features and integrating analytics."
+    },
+    {
+      "id": 3,
+      "name": "Academic Supervisor",
+      "title": "Professor, Computer Engineering",
+      "verified": true,
+      "testimonial": "Dhruv is an exceptional student with outstanding academic performance (95.58%). His passion for mobile development and commitment to learning new technologies sets him apart."
+    }
+  ],
+  "topSkills": [
+    "Flutter",
+    "Dart",
+    "Java",
+    "XCode",
+    "SQL"
+  ],
+  "skills": {
+    "frontend": [
+      {
+        "name": "Flutter",
+        "icon": "📱",
+        "level": "EXPERT",
+        "description": "Primary framework for building cross-platform mobile applications with beautiful user interfaces.",
+        "projectCount": 3
+      },
+      {
+        "name": "Dart",
+        "icon": "🎯",
+        "level": "EXPERT",
+        "description": "Programming language for Flutter development, enabling fast and efficient mobile app creation.",
+        "projectCount": 3
+      },
+      {
+        "name": "Java",
+        "icon": "☕",
+        "level": "ADVANCED",
+        "description": "Object-oriented language used for Android development and backend services.",
+        "projectCount": 2
+      },
+      {
+        "name": "XML",
+        "icon": "📄",
+        "level": "INTERMEDIATE",
+        "description": "Markup language for Android UI layouts and configuration files.",
+        "projectCount": 2
+      }
+    ],
+    "backend": [
+      {
+        "name": "Node.js",
+        "icon": "🟢",
+        "level": "INTERMEDIATE",
+        "description": "JavaScript runtime for building scalable server-side applications and APIs.",
+        "projectCount": 2
+      },
+      {
+        "name": "SQL",
+        "icon": "🗄️",
+        "level": "ADVANCED",
+        "description": "Database query language for managing and manipulating relational databases.",
+        "projectCount": 3
+      },
+      {
+        "name": "Python",
+        "icon": "🐍",
+        "level": "INTERMEDIATE",
+        "description": "Versatile programming language for scripting, automation, and backend development.",
+        "projectCount": 2
+      },
+      {
+        "name": "REST APIs",
+        "icon": "🔌",
+        "level": "ADVANCED",
+        "description": "Integration with RESTful services for data fetching and backend communication.",
+        "projectCount": 3
+      }
+    ],
+    "tools": [
+      {
+        "name": "XCode",
+        "icon": "🍎",
+        "level": "ADVANCED",
+        "description": "Apple's IDE for iOS development, app distribution, and AppStore deployment.",
+        "projectCount": 2
+      },
+      {
+        "name": "Android Studio",
+        "icon": "🤖",
+        "level": "EXPERT",
+        "description": "Official IDE for Android development with powerful debugging and testing tools.",
+        "projectCount": 3
+      },
+      {
+        "name": "Git / GitHub",
+        "icon": "🔀",
+        "level": "ADVANCED",
+        "description": "Version control system for code management and collaboration.",
+        "projectCount": 3
+      },
+      {
+        "name": "Sentry.io",
+        "icon": "🐛",
+        "level": "INTERMEDIATE",
+        "description": "Error tracking and monitoring platform for app stability and performance.",
+        "projectCount": 1
+      },
+      {
+        "name": "Google Analytics",
+        "icon": "📊",
+        "level": "INTERMEDIATE",
+        "description": "Analytics platform for tracking user behavior and app performance metrics.",
+        "projectCount": 1
+      },
+      {
+        "name": "Firebase",
+        "icon": "🔥",
+        "level": "INTERMEDIATE",
+        "description": "Google's mobile platform for app development with backend services.",
+        "projectCount": 2
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "Neuro - iPad VA",
+      "description": "An app that showcases data about medicines in an interactive way to doctors. Developed using Flutter for iPad device with data persistence, Sentry.io error tracking, and Google Analytics integration.",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "XCode",
+        "Sentry.io",
+        "Analytics"
+      ],
+      "category": "mobile",
+      "color": "#E9D5FF",
+      "icon": "💊",
+      "demoUrl": "https://apps.apple.com",
+      "codeUrl": "https://github.com/dhruvjaink07"
+    },
+    {
+      "id": 2,
+      "title": "Quiz App",
+      "description": "Interactive Quiz App designed to boost doctor engagement with pharmaceutical brands. Developed for iPad with data persistence and analytics tracking. Successfully distributed on AppStore Connect.",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "XCode",
+        "Analytics"
+      ],
+      "category": "mobile",
+      "color": "#BBF7D0",
+      "icon": "❓",
+      "demoUrl": "https://apps.apple.com",
+      "codeUrl": "https://github.com/dhruvjaink07"
+    },
+    {
+      "id": 3,
+      "title": "dSangeet - Android Music Player",
+      "description": "A native Android music player app that fetches music from the user's device after permission is granted. Built using Java and XML in Android Studio with intuitive UI and smooth playback.",
+      "technologies": [
+        "Java",
+        "XML",
+        "Android Studio"
+      ],
+      "category": "mobile",
+      "color": "#FECACA",
+      "icon": "🎵",
+      "demoUrl": "https://demo.example.com",
+      "codeUrl": "https://github.com/dhruvjaink07"
+    }
+  ],
+  "contact": {
+    "email": "dhruvkishorjain2508@gmail.com",
+    "location": "Mumbai, Maharashtra",
+    "availability": "Open to opportunities"
+  }
+}

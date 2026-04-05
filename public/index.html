@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Hillary Bale - Full Stack Engineer specializing in JavaScript, React, and Node.js. View my portfolio, projects, and technical skills.">
+    <meta name="keywords" content="Full Stack Developer, JavaScript, React, Node.js, Web Development, Portfolio">
+    <meta name="author" content="Dhruv Jain">
+    <title>Dhruv Jain - Full Stack Engineer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="2" />
+                    <path d="M8 12L12 8L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </div>
+            <h1 class="brand">DJ</h1>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="#home" class="nav-link active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <a href="#projects" class="nav-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                </svg>
+                <span>Projects</span>
+            </a>
+
+            <a href="#skills" class="nav-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                </svg>
+                <span>Skills</span>
+            </a>
+
+            <a href="#contact" class="nav-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <span>Contact</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Home/Profile Section -->
+        <section id="home" class="page">
+            <h2 class="page-title">Profile Overview</h2>
+
+            <div class="content-grid">
+                <div class="left-column">
+                    <!-- Profile Card -->
+                    <div class="profile-card">
+                        <div class="profile-image-container" id="profile-image"></div>
+
+                        <div class="profile-info">
+                            <h3 class="profile-name" id="profile-name"></h3>
+                            <p class="profile-title" id="profile-title"></p>
+
+                            <div class="social-links" id="social-links"></div>
+
+                            <p class="profile-bio" id="profile-bio"></p>
+
+                            <div class="profile-actions">
+                                <button class="btn btn-primary" id="download-cv">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg>
+                                    Resume
+                                </button>
+                                <button class="btn btn-secondary">GitHub</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Endorsements Section -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3 class="section-title">Endorsements</h3>
+                            <button class="btn btn-outline">View LinkedIn</button>
+                        </div>
+
+                        <div class="endorsements-grid" id="endorsements-grid"></div>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <!-- Work Experience -->
+                    <div class="section-card">
+                        <h3 class="section-title">Work experience</h3>
+                        <div class="experience-list" id="experience-list"></div>
+                    </div>
+
+                    <!-- Top Skills -->
+                    <div class="section-card">
+                        <h3 class="section-title">Top Skills</h3>
+                        <div class="skills-badges" id="top-skills"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="page">
+            <div class="projects-header">
+                <div>
+                    <h2 class="page-title">Projects Showcase</h2>
+                    <p class="page-subtitle">A selection of my recent work, experiments, and open-source contributions.
+                    </p>
+                </div>
+
+                <div class="filter-buttons" id="project-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="filter-btn" data-filter="design">Design</button>
+                </div>
+            </div>
+
+            <div class="projects-grid" id="projects-grid"></div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="page">
+            <div class="skills-header">
+                <h2 class="page-title">Skills & Technologies</h2>
+                <p class="page-subtitle">My technical stack and the tools I use to bring ideas to life.</p>
+            </div>
+
+            <div class="skills-sections">
+                <!-- Frontend Ecosystem -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">💜</div>
+                        <h3 class="category-title">Frontend Ecosystem</h3>
+                    </div>
+                    <div class="skills-cards-grid" id="frontend-skills"></div>
+                </div>
+
+                <!-- Backend & Data -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">🗄️</div>
+                        <h3 class="category-title">Backend & Data</h3>
+                    </div>
+                    <div class="skills-cards-grid" id="backend-skills"></div>
+                </div>
+
+                <!-- Tools & Platforms -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <div class="category-icon">🛠️</div>
+                        <h3 class="category-title">Tools & Platforms</h3>
+                    </div>
+                    <div class="skills-cards-grid" id="tools-skills"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="page">
+            <div class="contact-header">
+                <h2 class="page-title">Get In Touch</h2>
+                <p class="page-subtitle">Have a project in mind or just want to chat? Feel free to reach out!</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-section">
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <p id="contact-email"></p>
+                        <a href="#" class="contact-link" id="email-link">Send a message →</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Location</h3>
+                        <p id="contact-location"></p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">💼</div>
+                        <h3>Availability</h3>
+                        <p id="contact-availability"></p>
+                    </div>
+
+                    <div class="contact-card social-card">
+                        <h3>Connect With Me</h3>
+                        <div class="social-links-large" id="contact-social"></div>
+                    </div>
+                </div>
+
+                <div class="contact-form-section">
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xpqabavv" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                            </svg>
+                            Send Message
+                        </button>
+                    </form>
+                    <div id="form-toast" class="form-toast"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
