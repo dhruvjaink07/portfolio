@@ -112,7 +112,7 @@ html {
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--color-bg);
+    background-color: transparent; /* Changed from var(--color-bg) to expose mountain background properly */
     color: var(--color-text);
     font-size: var(--text-base);
     line-height: 1.6;
@@ -195,7 +195,7 @@ object {
 }
 
 /* ===================================
-   MAJESTIC MOUNTAIN BACKGROUND 
+   REALISTIC MOUNTAIN BACKGROUND 
    =================================== */
 .mountain-bg {
     position: fixed;
@@ -206,117 +206,40 @@ object {
     z-index: -1;
     overflow: hidden;
     pointer-events: none;
-    background: linear-gradient(180deg, var(--color-bg) 0%, var(--theme-sidebar) 100%);
-    transition: background var(--transition-base);
+    /* Light Mode: Swiss Alps / Everest during the day */
+    background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2670&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    /* Removed background-attachment: fixed which breaks on mobile iOS */
+    transition: background-image 0.5s ease-in-out;
 }
 
-.celestial-body {
+@media (max-width: 768px) {
+    .mountain-bg {
+        /* Optimize mobile mountain peaks view (Shift up slightly) */
+        background-position: 50% 30%;
+    }
+}
+
+[data-theme="dark"] .mountain-bg {
+    /* Dark Mode: Kasol / Nepal / Japan starry night */
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2670&auto=format&fit=crop');
+}
+
+.mountain-overlay {
     position: absolute;
-    top: 15%;
-    left: 70%;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--theme-primary) 0%, transparent 70%);
-    filter: blur(8px);
-    opacity: 0.8;
-    transform: translateX(0);
-    animation: heavenly-drift 60s ease-in-out infinite alternate;
+    inset: 0;
+    /* Light Mode: Subtle white sheen (Removed heavy blur opacity) */
+    background: rgba(248, 250, 252, 0.45);
+    transition: background 0.5s ease-in-out;
 }
 
-[data-theme="dark"] .celestial-body {
-    background: radial-gradient(circle, #F8FAFC 0%, transparent 70%);
-    box-shadow: 0 0 40px var(--theme-primary), 0 0 80px var(--theme-primary);
-    opacity: 0.6;
+[data-theme="dark"] .mountain-overlay {
+    /* Dark Mode: Subtle navy tint to pop text (Removed heavy blur opacity) */
+    background: rgba(15, 23, 42, 0.55);
 }
 
-.clouds {
-    position: absolute;
-    top: 20%;
-    width: 200px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 50px;
-    filter: blur(20px);
-}
-
-[data-theme="dark"] .clouds {
-    background: rgba(148, 163, 184, 0.15);
-}
-
-.cloud-1 {
-    left: -10%;
-    animation: float-clouds 45s linear infinite;
-    transform: scale(1.5);
-}
-
-.cloud-2 {
-    top: 35%;
-    right: -10%;
-    animation: float-clouds 60s linear infinite reverse;
-    transform: scale(2);
-    opacity: 0.6;
-}
-
-.mountain-range {
-    position: absolute;
-    bottom: -5vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-/* Back layer (Everest peaks) */
-.parallax-layer-back {
-    height: 60vh;
-    background-color: var(--color-border);
-    opacity: 0.3;
-    clip-path: polygon(0 40%, 15% 15%, 25% 30%, 40% 10%, 55% 35%, 65% 20%, 80% 45%, 100% 25%, 100% 100%, 0 100%);
-    animation: breathe 15s ease-in-out infinite alternate;
-}
-
-/* Mid layer (Swiss Alps) */
-.parallax-layer-mid {
-    height: 45vh;
-    background-color: var(--theme-sidebar);
-    opacity: 0.6;
-    clip-path: polygon(0 60%, 20% 30%, 45% 55%, 60% 35%, 85% 65%, 100% 40%, 100% 100%, 0 100%);
-    transform: translateX(0);
-    animation: breathe 12s ease-in-out infinite alternate-reverse;
-}
-
-/* Front layer (Kasol pines silhouette) */
-.parallax-layer-front {
-    height: 30vh;
-    background-color: var(--color-surface);
-    opacity: 0.9;
-    clip-path: polygon(0 50%, 10% 60%, 25% 40%, 40% 70%, 50% 50%, 70% 80%, 85% 60%, 100% 75%, 100% 100%, 0 100%);
-}
-
-.fog {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30vh;
-    background: linear-gradient(0deg, var(--color-bg) 0%, transparent 100%);
-    opacity: 0.8;
-}
-
-@keyframes heavenly-drift {
-    0% { transform: translateY(0) translateX(0); }
-    100% { transform: translateY(-50px) translateX(-50px); opacity: 1; }
-}
-
-@keyframes float-clouds {
-    0% { transform: translateX(0vw); }
-    100% { transform: translateX(100vw); }
-}
-
-@keyframes breathe {
-    0% { transform: translateY(0) scaleY(1); }
-    100% { transform: translateY(5px) scaleY(1.02); }
-}
+/* ===================================
 
 /* ===================================
    FLOATING THEME TOGGLE
@@ -415,14 +338,35 @@ object {
     gap: var(--spacing-sm);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: 4px;
-    transition: all var(--transition-base);
     font-weight: 500;
     font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--theme-primary);
+    transform: scaleY(0);
+    transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+    transform-origin: bottom;
 }
 
 .nav-link:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    transform: translateX(4px);
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateX(8px);
+    color: var(--theme-primary);
+}
+
+.nav-link:hover::before {
+    transform: scaleY(1);
+    transform-origin: top;
 }
 
 .nav-link.active {
@@ -433,6 +377,11 @@ object {
 .nav-link svg {
     width: 20px;
     height: 20px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-link:hover svg {
+    transform: scale(1.2) rotate(-5deg);
 }
 
 .sidebar-footer {
@@ -587,15 +536,38 @@ object {
     font-weight: 600;
     font-size: 0.95rem;
     border: var(--border-width) solid var(--color-border);
-    transition: all var(--transition-base);
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-sm);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: left 0.6s ease-in-out;
 }
 
 .btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-sm);
+    transform: translate(-3px, -3px) scale(1.02);
+    box-shadow: 6px 6px 0 var(--color-text), 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn:hover::after {
+    left: 120%;
 }
 
 .btn-primary {
@@ -683,6 +655,13 @@ object {
     border: var(--border-width) solid var(--color-border);
     background-size: cover;
     background-position: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    animation: luxurious-float 6s ease-in-out infinite;
+}
+
+@keyframes luxurious-float {
+    0%, 100% { transform: translateY(0); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+    50% { transform: translateY(-8px); box-shadow: 0 20px 25px rgba(0,0,0,0.25); }
 }
 
 .profile-info {
@@ -717,14 +696,15 @@ object {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--transition-base);
+    border-radius: 50%;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .social-link:hover {
-    background-color: var(--color-border);
-    color: var(--theme-primary);
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-sm);
+    background-color: var(--theme-sidebar);
+    color: var(--theme-primary-dark);
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1), var(--shadow-sm);
 }
 
 .stats-grid {
@@ -1018,12 +998,39 @@ object {
     background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     overflow: hidden;
-    transition: all var(--transition-base);
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-20deg);
+    transition: none;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .project-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1), var(--shadow-lg);
+    border-color: var(--theme-primary);
+}
+
+.project-card:hover::before {
+    animation: luxurious-shine 1s ease-out forwards;
+}
+
+@keyframes luxurious-shine {
+    100% { left: 200%; }
 }
 
 .project-thumbnail {
@@ -1034,6 +1041,15 @@ object {
     font-size: 4rem;
     border-bottom: var(--border-width) solid var(--color-border);
     position: relative;
+    overflow: hidden;
+}
+
+.project-thumbnail span {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-thumbnail span {
+    transform: scale(1.15) rotate(5deg);
 }
 
 .project-thumbnail::before {
@@ -1162,12 +1178,36 @@ object {
     background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
-    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(150, 150, 150, 0.05) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-20deg);
+    transition: none;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .skill-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08), var(--shadow-sm);
+    border-color: var(--theme-sidebar);
+}
+
+.skill-card:hover::before {
+    animation: luxurious-shine 1s ease-out forwards;
 }
 
 .skill-card-header {
@@ -1186,6 +1226,12 @@ object {
     align-items: center;
     justify-content: center;
     font-size: 1.75rem;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+    transform: scale(1.1) rotate(10deg);
+    background-color: var(--theme-sidebar);
 }
 
 .skill-level {
@@ -1877,12 +1923,23 @@ object {
    =================================== */
 .fade-in {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(30px) scale(0.98);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .fade-in.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+}
+
+/* Mobile-specific touch interactions */
+@media (hover: none) and (pointer: coarse) {
+    .project-card:active,
+    .skill-card:active,
+    .btn:active,
+    .filter-btn:active {
+        transform: scale(0.96) !important;
+        transition: transform 0.1s ease-out;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1984,43 +2041,55 @@ object {
 }
 
 .contact-card {
-    background-color: white;
+    background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     transition: all var(--transition-base);
+    color: var(--color-text);
 }
 
 .contact-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-color: var(--theme-primary);
 }
 
 .contact-icon {
     width: 64px;
     height: 64px;
-    background-color: var(--color-yellow);
-    border: var(--border-width) solid var(--color-border);
+    background-color: var(--theme-primary);
+    color: var(--color-bg);
+    border: var(--border-width) solid var(--theme-primary-dark);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
     margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-base);
+}
+
+.contact-card:hover .contact-icon {
+    transform: rotate(-10deg) scale(1.1);
 }
 
 .contact-card h3 {
     font-size: 1.1rem;
     font-family: var(--font-mono);
     margin-bottom: var(--spacing-sm);
+    color: var(--theme-primary);
 }
 
 .contact-card p {
     font-size: 1rem;
-    color: var(--color-gray);
+    color: var(--color-text-muted);
     margin-bottom: var(--spacing-md);
 }
 
 .contact-link {
-    color: var(--color-black);
+    color: var(--color-text);
     font-weight: 600;
     font-size: 0.9rem;
     text-decoration: none;
@@ -2028,31 +2097,37 @@ object {
 }
 
 .contact-link:hover {
-    color: var(--color-yellow-dark);
+    color: var(--theme-primary);
+    text-decoration: underline;
 }
 
 .social-card {
-    background-color: var(--color-mint);
+    background-color: color-mix(in srgb, var(--theme-sidebar) 85%, transparent);
 }
 
 .social-links-large {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
     margin-top: var(--spacing-md);
 }
 
 .social-links-large .social-link {
-    width: 100%;
+    width: 56px;
     height: 56px;
+    border-radius: 50%;
+    font-size: 1.5rem;
 }
 
 /* Contact Form */
 .contact-form-section {
-    background-color: white;
+    background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-2xl);
     position: relative;
+    color: var(--color-text);
 }
 
 .contact-form {
@@ -2075,6 +2150,7 @@ object {
     font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: var(--color-text-muted);
 }
 
 .form-group input,
@@ -2084,15 +2160,23 @@ object {
     font-family: var(--font-sans);
     font-size: 1rem;
     transition: all var(--transition-base);
-    background-color: var(--color-gray-light);
+    background-color: color-mix(in srgb, var(--color-bg) 70%, transparent);
+    color: var(--color-text);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    background-color: white;
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-sm);
+    background-color: var(--color-surface);
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 15px color-mix(in srgb, var(--theme-primary) 30%, transparent);
+    transform: translateY(-2px);
 }
 
 .form-group textarea {

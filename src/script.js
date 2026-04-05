@@ -95,24 +95,31 @@ function setupScrollAnimations() {
     );
     staggerItems.forEach(el => el.classList.add('fade-in'));
 
+    // Check if device supports hover (desktop) vs touch (mobile)
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 // Add a small delay based on index to create a stagger effect on load
                 setTimeout(() => {
                     entry.target.classList.add('visible');
-                    // Initialize tilt if it's a project card or skill card
-                    if(entry.target.classList.value.includes('project-card') || entry.target.classList.value.includes('skill-card')) {
-                        VanillaTilt.init(entry.target, {
-                            max: 12,
-                            speed: 400,
-                            glare: true,
-                            "max-glare": 0.2,
-                        });
+                    
+                    // Initialize tilt ONLY if it's a desktop/hover-capable device
+                    // VanillaTilt feels clunky/sticky on mobile touch screens
+                    if (!isTouchDevice) {
+                        if(entry.target.classList.value.includes('project-card') || entry.target.classList.value.includes('skill-card')) {
+                            VanillaTilt.init(entry.target, {
+                                max: 12,
+                                speed: 400,
+                                glare: true,
+                                "max-glare": 0.2,
+                            });
+                        }
                     }
                 }, index * 50);
                 
-                // Optional: Stop observing once faded in to avoid repeated animations 
+                // Stop observing once faded in to avoid repeated animations 
                 obs.unobserve(entry.target);
             }
         });
