@@ -2,29 +2,28 @@
    CSS CUSTOM PROPERTIES & THEMING
    =================================== */
 :root {
-    /* Color Palette */
-    --color-mint: #A8D5BA;
-    --color-mint-dark: #8BC4A3;
-    --color-yellow: #FFD93D;
-    --color-yellow-dark: #FFC107;
-    --color-pink: #FFB6C1;
-    --color-purple: #E9D5FF;
-    --color-blue: #BFDBFE;
-    --color-green: #BBF7D0;
-    --color-red: #FECACA;
+    /* Mountain Palette */
+    --color-snow: #F8FAFC;
+    --color-ice-blue: #E0F2FE;
+    --color-slate: #CBD5E1;
+    --color-mountain-base: #94A3B8;
+    --color-alpine-green: #34D399;
+    --color-sunset: #FB923C;
+    --color-night: #0F172A;
+    --color-deep-forest: #064E3B;
     
-    /* Light Theme (Default) */
-    --color-bg: #FFF8E7; /* replacing --color-cream */
-    --color-text: #1A1A1A; /* replacing --color-black */
-    --color-border: #000000;
+    /* Light Theme (Swiss Alps/Daytime) */
+    --color-bg: var(--color-snow);
+    --color-text: #0F172A;
+    --color-border: #475569;
     --color-surface: #FFFFFF;
-    --color-surface-hover: #F3F4F6;
-    --color-text-muted: #6B7280;
+    --color-surface-hover: #F1F5F9;
+    --color-text-muted: #64748B;
 
-    /* Theme overrides using semantic names */
-    --theme-primary: var(--color-yellow);
-    --theme-primary-dark: var(--color-yellow-dark);
-    --theme-sidebar: var(--color-mint);
+    /* Theme overrides */
+    --theme-primary: var(--color-sunset); /* Used for sun/accents */
+    --theme-primary-dark: #EA580C;
+    --theme-sidebar: var(--color-ice-blue);
 
     /* Typography - Fluid via clamp() */
     --font-mono: 'Space Mono', monospace;
@@ -62,16 +61,17 @@
 }
 
 [data-theme="dark"] {
-    --color-bg: #121212;
-    --color-text: #F3F4F6;
-    --color-border: #4B5563;
-    --color-surface: #1E1E1E;
-    --color-surface-hover: #2D2D2D;
-    --color-text-muted: #9CA3AF;
+    /* Kasol/Nepal/Japan Twilight */
+    --color-bg: var(--color-night);
+    --color-text: #F8FAFC;
+    --color-border: #334155;
+    --color-surface: #1E293B;
+    --color-surface-hover: #334155;
+    --color-text-muted: #94A3B8;
     
-    --theme-primary: #D97706; /* distinct yellow/orange for dark mode */
-    --theme-primary-dark: #B45309;
-    --theme-sidebar: #064E3B; /* deeper mint/green */
+    --theme-primary: #38BDF8; /* Glowing star/moon blue */
+    --theme-primary-dark: #0EA5E9;
+    --theme-sidebar: #0B0F19; /* Deep night */
     
     --shadow-sm: 4px 4px 0 #000;
     --shadow-md: 6px 6px 0 #000;
@@ -80,16 +80,16 @@
 
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-        /* Matches [data-theme="dark"] vars but triggered by OS */
-        --color-bg: #121212;
-        --color-text: #F3F4F6;
-        --color-border: #4B5563;
-        --color-surface: #1E1E1E;
-        --color-surface-hover: #2D2D2D;
-        --color-text-muted: #9CA3AF;
-        --theme-primary: #D97706;
-        --theme-primary-dark: #B45309;
-        --theme-sidebar: #064E3B;
+        /* Kasol/Nepal/Japan Twilight */
+        --color-bg: var(--color-night);
+        --color-text: #F8FAFC;
+        --color-border: #334155;
+        --color-surface: #1E293B;
+        --color-surface-hover: #334155;
+        --color-text-muted: #94A3B8;
+        --theme-primary: #38BDF8;
+        --theme-primary-dark: #0EA5E9;
+        --theme-sidebar: #0B0F19;
         --shadow-sm: 4px 4px 0 #000;
         --shadow-md: 6px 6px 0 #000;
         --shadow-lg: 8px 8px 0 #000;
@@ -195,9 +195,9 @@ object {
 }
 
 /* ===================================
-   SURREAL BACKGROUND ANIMATIONS
+   MAJESTIC MOUNTAIN BACKGROUND 
    =================================== */
-.surreal-bg {
+.mountain-bg {
     position: fixed;
     top: 0;
     left: 0;
@@ -206,56 +206,116 @@ object {
     z-index: -1;
     overflow: hidden;
     pointer-events: none;
-    opacity: 0.6;
-    transition: opacity var(--transition-base);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--theme-sidebar) 100%);
+    transition: background var(--transition-base);
 }
 
-[data-theme="dark"] .surreal-bg {
-    opacity: 0.2;
-}
-
-.surreal-orb {
+.celestial-body {
     position: absolute;
-    filter: blur(80px);
+    top: 15%;
+    left: 70%;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    animation: drift infinite alternate ease-in-out;
-}
-
-.orb-1 {
-    width: 400px;
-    height: 400px;
     background: radial-gradient(circle, var(--theme-primary) 0%, transparent 70%);
-    top: -100px;
-    left: -100px;
-    animation-duration: 20s;
+    filter: blur(8px);
+    opacity: 0.8;
+    transform: translateX(0);
+    animation: heavenly-drift 60s ease-in-out infinite alternate;
 }
 
-.orb-2 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, var(--theme-secondary) 0%, transparent 70%);
-    bottom: -150px;
-    right: -100px;
-    animation-duration: 25s;
-    animation-delay: -5s;
+[data-theme="dark"] .celestial-body {
+    background: radial-gradient(circle, #F8FAFC 0%, transparent 70%);
+    box-shadow: 0 0 40px var(--theme-primary), 0 0 80px var(--theme-primary);
+    opacity: 0.6;
 }
 
-.orb-3 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, var(--color-yellow) 0%, transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-duration: 30s;
-    animation-delay: -10s;
+.clouds {
+    position: absolute;
+    top: 20%;
+    width: 200px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    filter: blur(20px);
 }
 
-@keyframes drift {
-    0% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(50px, -50px) scale(1.1); }
-    66% { transform: translate(-30px, 30px) scale(0.9); }
-    100% { transform: translate(0, 0) scale(1); }
+[data-theme="dark"] .clouds {
+    background: rgba(148, 163, 184, 0.15);
+}
+
+.cloud-1 {
+    left: -10%;
+    animation: float-clouds 45s linear infinite;
+    transform: scale(1.5);
+}
+
+.cloud-2 {
+    top: 35%;
+    right: -10%;
+    animation: float-clouds 60s linear infinite reverse;
+    transform: scale(2);
+    opacity: 0.6;
+}
+
+.mountain-range {
+    position: absolute;
+    bottom: -5vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Back layer (Everest peaks) */
+.parallax-layer-back {
+    height: 60vh;
+    background-color: var(--color-border);
+    opacity: 0.3;
+    clip-path: polygon(0 40%, 15% 15%, 25% 30%, 40% 10%, 55% 35%, 65% 20%, 80% 45%, 100% 25%, 100% 100%, 0 100%);
+    animation: breathe 15s ease-in-out infinite alternate;
+}
+
+/* Mid layer (Swiss Alps) */
+.parallax-layer-mid {
+    height: 45vh;
+    background-color: var(--theme-sidebar);
+    opacity: 0.6;
+    clip-path: polygon(0 60%, 20% 30%, 45% 55%, 60% 35%, 85% 65%, 100% 40%, 100% 100%, 0 100%);
+    transform: translateX(0);
+    animation: breathe 12s ease-in-out infinite alternate-reverse;
+}
+
+/* Front layer (Kasol pines silhouette) */
+.parallax-layer-front {
+    height: 30vh;
+    background-color: var(--color-surface);
+    opacity: 0.9;
+    clip-path: polygon(0 50%, 10% 60%, 25% 40%, 40% 70%, 50% 50%, 70% 80%, 85% 60%, 100% 75%, 100% 100%, 0 100%);
+}
+
+.fog {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    background: linear-gradient(0deg, var(--color-bg) 0%, transparent 100%);
+    opacity: 0.8;
+}
+
+@keyframes heavenly-drift {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(-50px) translateX(-50px); opacity: 1; }
+}
+
+@keyframes float-clouds {
+    0% { transform: translateX(0vw); }
+    100% { transform: translateX(100vw); }
+}
+
+@keyframes breathe {
+    0% { transform: translateY(0) scaleY(1); }
+    100% { transform: translateY(5px) scaleY(1.02); }
 }
 
 /* ===================================
@@ -268,11 +328,11 @@ object {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: var(--color-text);
-    color: var(--color-bg);
-    border: none;
+    background-color: var(--color-surface);
+    color: var(--theme-primary);
+    border: var(--border-width) solid var(--color-border);
     cursor: pointer;
-    box-shadow: 4px 4px 0px var(--theme-primary);
+    box-shadow: 4px 4px 0px var(--theme-sidebar);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -283,12 +343,12 @@ object {
 
 .floating-theme-toggle:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px var(--color-yellow);
+    box-shadow: 6px 6px 0px var(--theme-primary);
 }
 
 .floating-theme-toggle:active {
     transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px var(--theme-primary);
+    box-shadow: 2px 2px 0px var(--theme-sidebar);
 }
 
 @media (max-width: 768px) {
