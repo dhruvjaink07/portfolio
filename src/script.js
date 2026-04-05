@@ -44,6 +44,12 @@ function initializeApp() {
     applyBrowserSpecificTheme();
     initEasterEggs();
 
+    // Log a recruitment message
+    console.log("%c👋 Hey there, fellow developer!", "color: #34D399; font-size: 24px; font-weight: bold; font-family: sans-serif;");
+    console.log("%cIf you're poking around in the console, we should probably talk. \nDrop me a line at " + portfolioData.contact.email, "color: #94A3B8; font-size: 14px; font-family: monospace; line-height: 1.5;");
+    console.log("%c(P.S. Try pressing 'Ctrl + `' to open something fun!)", "color: #FB923C; font-size: 12px; font-family: monospace;");
+
+
     // Render all pages
     renderHomePage();
     renderProjectsPage();
@@ -54,6 +60,13 @@ function initializeApp() {
     setupNavigation();
     setupThemeToggle();
     setupScrollAnimations();
+    
+    // Setup Top 1% UI Enhancements
+    initCanvasBackground();
+    initLiveStatus();
+    initMagneticButtons();
+    initCommandPalette();
+    initScrambleEffect();
     
     // Setup project filters
     setupProjectFilters();
@@ -95,18 +108,46 @@ function setupThemeToggle() {
         document.documentElement.setAttribute('data-theme', 'light');
     }
 
-    themeBtn.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-            sunIcon.style.display = 'block';
-            moonIcon.style.display = 'none';
+    themeBtn.addEventListener('click', async (e) => {
+        const toggle = () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+            playClickSound(); // UI micro-interaction
+        };
+
+        if (document.startViewTransition) {
+            // Experimental True SPA View Transition
+            const transition = document.startViewTransition(() => toggle());
+            await transition.ready;
+            
+            // Adding a dynamic circular clip-path expanding out from where the user clicked!
+            const x = e.clientX;
+            const y = e.clientY;
+            document.documentElement.animate(
+                {
+                    clipPath: [
+                        `circle(0px at ${x}px ${y}px)`,
+                        `circle(${Math.max(window.innerWidth, window.innerHeight) * 2}px at ${x}px ${y}px)`
+                    ],
+                },
+                {
+                    duration: 500,
+                    easing: 'ease-out',
+                    pseudoElement: '::view-transition-new(root)'
+                }
+            );
         } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'block';
+            toggle();
         }
     });
 }
@@ -208,6 +249,15 @@ function navigateToPage(page) {
     }
 }
 
+function getDynamicGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 5) return "Burning the midnight oil? 🦉";
+    if (hour < 12) return "Good morning! ☕";
+    if (hour < 17) return "Good afternoon! ☀️";
+    if (hour < 21) return "Good evening! 🌇";
+    return "Hope you're having a great night! 🌙";
+}
+
 // ===================================
 // HOME PAGE RENDERING
 // ===================================
@@ -238,7 +288,7 @@ function renderHomePage() {
 
     // Profile Info
     document.getElementById('profile-name').textContent = profile.name;
-    document.getElementById('profile-title').textContent = profile.title;
+    document.getElementById('profile-title').textContent = `${getDynamicGreeting()} | ${profile.title}`;
     
     // Bio Text using pretext for calculating text height and pre-allocating space to prevent CLS
     const bioElement = document.getElementById('profile-bio');
@@ -1012,13 +1062,343 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===================================
+// TOP 1% UI FEATURES (Canvas, Magnetic, Live Status)
+// ===================================
+function initCanvasBackground() {
+    const canvas = document.getElementById('bg-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let particles = [];
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        initParticles();
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.size = Math.random() * 2 + 1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if(this.x < 0 || this.x > width) this.vx *= -1;
+            if(this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--theme-primary').trim();
+            ctx.globalAlpha = 0.6;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const count = Math.floor(window.innerWidth / 15);
+        for(let i = 0; i < count && i < 150; i++) { // Max 150 particles for performance
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--theme-primary').trim();
+        // Draw connections
+        for(let i = 0; i < particles.length; i++) {
+            for(let j = i; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if(dist < 100) {
+                    ctx.globalAlpha = (1 - (dist/100)) * 0.3;
+                    ctx.beginPath();
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        ctx.globalAlpha = 1.0;
+        requestAnimationFrame(animate);
+    }
+    
+    initParticles();
+    animate();
+}
+
+function initLiveStatus() {
+    const timeEl = document.getElementById('live-time');
+    const weatherEl = document.getElementById('live-weather');
+    
+    // Local Time Updater
+    setInterval(() => {
+        if(timeEl) timeEl.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+    }, 1000);
+
+    // Weather API via Open-Meteo (No API Key needed) - Example coords for Bangalore / or dynamically fetched based on IP
+    // Mocking an IP fetch using a purely free API without keys
+    if(weatherEl) {
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=12.9716&longitude=77.5946&current_weather=true')
+        .then(res => res.json())
+        .then(data => {
+            const temp = Math.round(data.current_weather.temperature);
+            weatherEl.textContent = `${temp}°C Local`;
+        }).catch(err => {
+            weatherEl.textContent = '72°F Ideal';
+        });
+    }
+}
+
+function initMagneticButtons() {
+    const magnetics = document.querySelectorAll('.btn, .nav-link, .social-link');
+    
+    magnetics.forEach(btn => {
+        btn.classList.add('magnetic-inner');
+        
+        // Wrap in a wrapper to preserve layout bounds
+        const wrapper = document.createElement('div');
+        wrapper.className = 'magnetic-wrap';
+        btn.parentNode.insertBefore(wrapper, btn);
+        wrapper.appendChild(btn);
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // Subtle pull
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            btn.style.transform = `translate(0px, 0px)`;
+        });
+        
+        // Add Micro-UI Sound Design
+        btn.addEventListener('click', playClickSound);
+    });
+}
+
+const uiSounds = {
+    click: new Audio("data:audio/wav;base64,UklGRmYBAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YUoBAACAgID//////wAAAQADAAIAAwABAAIAAwABAAUAAgAFAAEABQAEAAcAAgAHAAIAAAAAAAEAAgAIAAQABQAHAAEACAABAAcAAQAHAAYACQALAAkACgAPAAQAAQAEAAYACgANAA4AEgAJAAEAAgADAAEABgAEAAEAAwADAAMAAAAAAAADAAUAAgADAAMABAACAAYAAAAAAAIAAAAEAAEAAgADAAQABAAFAAUAAgD//w=="),
+    woosh: new Audio("data:audio/wav;base64,UklGRmYBAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YUoBAACAgIAAAAIAAQADAAIAAQAFAAEABQAGAAQABgABAAAAAQAEAAIAAwADAAIAAAAFAAEAAAAAAAAAAAADAAAAAgAAAAEAAAAEAAAA//8AAAEAAwAAAAEABAADAAIAAgD//w8AAwQGAAUAAAAEAA==")
+};
+
+uiSounds.click.volume = 0.05;
+uiSounds.woosh.volume = 0.03;
+
+function playClickSound() {
+    try {
+        uiSounds.click.currentTime = 0;
+        uiSounds.click.play().catch(e => {});
+    } catch(err) {}
+}
+
+function initScrambleEffect() {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+    const titles = document.querySelectorAll('.page-title, .profile-name, .section-title, h3');
+    
+    const scramble = (element) => {
+        let iteration = 0;
+        const originalText = element.dataset.originalValue || element.innerText;
+        if (!element.dataset.originalValue) element.dataset.originalValue = originalText;
+        
+        clearInterval(element.scrambleInterval);
+        
+        element.scrambleInterval = setInterval(() => {
+            element.innerText = originalText
+                .split("")
+                .map((letter, index) => {
+                    if(index < iteration) {
+                        return originalText[index];
+                    }
+                    return letters[Math.floor(Math.random() * letters.length)];
+                })
+                .join("");
+            
+            if(iteration >= originalText.length){
+                clearInterval(element.scrambleInterval);
+            }
+            iteration += 1 / 3;
+        }, 30);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting && !entry.target.dataset.scrambled) {
+                entry.target.dataset.scrambled = "true";
+                scramble(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    titles.forEach(t => {
+        observer.observe(t);
+        t.addEventListener('mouseover', () => scramble(t));
+    });
+}
+
+function initCommandPalette() {
+    const html = `
+    <div id="cmd-palette">
+        <div class="cmd-modal">
+            <div class="cmd-input-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input type="text" class="cmd-input" placeholder="Type a command or search..." autofocus>
+                <div class="cmd-item-shortcut" style="margin-left:auto;">ESC</div>
+            </div>
+            <div class="cmd-results">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+
+    const palette = document.getElementById('cmd-palette');
+    const input = palette.querySelector('.cmd-input');
+    const resultsContainer = palette.querySelector('.cmd-results');
+    
+    // Command schema
+    const actions = [
+        { title: "Home", shortcut: "H", group: "Navigation", execute: () => window.location.hash = "home" },
+        { title: "Projects", shortcut: "P", group: "Navigation", execute: () => window.location.hash = "projects" },
+        { title: "Contact", shortcut: "C", group: "Navigation", execute: () => window.location.hash = "contact" },
+        { title: "Toggle Theme", shortcut: "T", group: "Appearance", execute: () => document.getElementById('theme-toggle').click() },
+        { title: "Open Terminal", shortcut: "Ctrl+`", group: "Developer", execute: () => {
+            document.getElementById('dev-terminal').classList.remove('hidden');
+        }},
+        { title: "Copy Email", shortcut: "E", group: "Contact", execute: () => {
+            navigator.clipboard.writeText(portfolioData.contact.email);
+            document.getElementById('form-toast').textContent = "Email Copied!";
+            document.getElementById('form-toast').className = "form-toast success show";
+            setTimeout(() => document.getElementById('form-toast').className = "form-toast", 3000);
+        }},
+    ];
+
+    let selectedIndex = 0;
+    
+    const renderActions = (filter = "") => {
+        const term = filter.toLowerCase();
+        const filtered = actions.filter(a => a.title.toLowerCase().includes(term) || a.group.toLowerCase().includes(term));
+        
+        resultsContainer.innerHTML = '';
+        if (filtered.length === 0) {
+            resultsContainer.innerHTML = `<div class="cmd-item" style="color:var(--color-gray)">No commands found.</div>`;
+            return;
+        }
+
+        filtered.forEach((action, i) => {
+            const el = document.createElement('div');
+            el.className = `cmd-item ${i === selectedIndex ? 'selected' : ''}`;
+            el.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                <span>${action.title}</span>
+                <span style="font-size:0.75rem; color:var(--color-gray)">— ${action.group}</span>
+                ${action.shortcut ? `<span class="cmd-item-shortcut">${action.shortcut}</span>` : ''}
+            `;
+            
+            el.addEventListener('mouseover', () => {
+                selectedIndex = i;
+                renderActions(filter); // Re-render for visual selection sync
+            });
+            
+            el.addEventListener('click', () => {
+                palette.classList.remove('active');
+                action.execute();
+            });
+            resultsContainer.appendChild(el);
+        });
+    };
+
+    // Open/Close logic
+    document.addEventListener('keydown', (e) => {
+        // Toggle (Ctrl+K or Cmd+K)
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if(palette.classList.contains('active')) {
+                palette.classList.remove('active');
+            } else {
+                palette.classList.add('active');
+                input.value = '';
+                selectedIndex = 0;
+                renderActions();
+                setTimeout(() => input.focus(), 100);
+                try { uiSounds.woosh.currentTime = 0; uiSounds.woosh.play().catch(e=>{}); } catch(err) {}
+            }
+        }
+        
+        if (!palette.classList.contains('active')) return;
+        
+        // Escape close
+        if (e.key === 'Escape') {
+            palette.classList.remove('active');
+        }
+
+        const filtered = actions.filter(a => a.title.toLowerCase().includes(input.value.toLowerCase()) || a.group.toLowerCase().includes(input.value.toLowerCase()));
+
+        // Navigation Up/Down
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = (selectedIndex + 1) % filtered.length;
+            renderActions(input.value);
+            playClickSound();
+        }
+        if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = (selectedIndex - 1 + filtered.length) % filtered.length;
+            renderActions(input.value);
+            playClickSound();
+        }
+        // Execute Action
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if(filtered[selectedIndex]) {
+                palette.classList.remove('active');
+                filtered[selectedIndex].execute();
+            }
+        }
+    });
+
+    // Filtering logic
+    input.addEventListener('input', (e) => {
+        selectedIndex = 0;
+        renderActions(e.target.value);
+    });
+    
+    // Close on overlay click
+    palette.addEventListener('click', (e) => {
+        if(e.target === palette) palette.classList.remove('active');
+    });
+}
+
+// ===================================
 // EASTER EGG TERMINAL COMMANDS
 // ===================================
 function initTerminal() {
     const terminalOverlay = document.getElementById('dev-terminal');
+    const terminalWindow = document.querySelector('.terminal-window');
     const terminalInput = document.getElementById('term-input');
     const terminalBody = document.getElementById('term-body');
     const terminalCloseBtn = document.getElementById('term-close');
+    const terminalMinimizeBtn = document.getElementById('term-minimize');
+    const terminalMaximizeBtn = document.getElementById('term-maximize');
     
     if (!terminalOverlay || !terminalInput) return;
 
@@ -1035,6 +1415,21 @@ function initTerminal() {
 
     // Close on red button or escape
     terminalCloseBtn.addEventListener('click', () => terminalOverlay.classList.add('hidden'));
+    
+    if (terminalMinimizeBtn) {
+        terminalMinimizeBtn.addEventListener('click', () => terminalOverlay.classList.add('hidden'));
+    }
+
+    if (terminalMaximizeBtn) {
+        terminalMaximizeBtn.addEventListener('click', () => {
+            terminalWindow.classList.toggle('fullscreen');
+            if(terminalWindow.classList.contains('fullscreen')) {
+                addLine('[SYSTEM] Display mode changed to fullscreen.', 'term-info');
+            }
+            terminalInput.focus();
+        });
+    }
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !terminalOverlay.classList.contains('hidden')) {
             terminalOverlay.classList.add('hidden');
@@ -1049,12 +1444,28 @@ function initTerminal() {
         terminalBody.scrollTop = terminalBody.scrollHeight;
     };
 
-    terminalInput.addEventListener('keydown', (e) => {
+    const typeWriterLine = async (text, className = '', speed = 20) => {
+        const div = document.createElement('div');
+        div.className = `term-line ${className}`;
+        terminalBody.appendChild(div);
+        
+        for(let i=0; i<text.length; i++){
+            div.textContent += text[i];
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+            await new Promise(r => setTimeout(r, speed + Math.random() * 20));
+        }
+        return div;
+    }
+
+    terminalInput.addEventListener('keydown', async (e) => {
         if (e.key === 'Enter') {
             const command = terminalInput.value.trim().toLowerCase();
             addLine(`dhruv@portfolio:~$ ${command}`);
             terminalInput.value = '';
-
+            
+            // Disable input while processing complex commands
+            const setInputState = (state) => terminalInput.disabled = !state;
+            
             switch (command) {
                 case '':
                     break;
@@ -1064,6 +1475,12 @@ function initTerminal() {
                     addLine('  skills    - Lists all core competencies');
                     addLine('  projects  - Shows recent project builds');
                     addLine('  contact   - Initiates secure channel');
+                    addLine('  hack      - [RESTRICTED] Bypasses mainframe security');
+                    addLine('  matrix    - Initiate visual data stream');
+                    addLine('  snake     - Initiate local snake emulator');
+                    addLine('  fullscreen- Toggles immersive terminal mode');
+                    addLine('  sudo      - Execute command as superuser');
+                    addLine('  gui       - Exit to graphical interface');
                     addLine('  clear     - Clears the terminal screen');
                     addLine('  exit      - Closes the terminal');
                     break;
@@ -1081,18 +1498,166 @@ function initTerminal() {
                 case 'contact':
                     addLine(`Send encrypted transmission to: ${portfolioData.contact.email}`, 'term-success');
                     break;
+                case 'hack':
+                    setInputState(false);
+                    await typeWriterLine('INITIATING SECURE HANDSHAKE...', 'term-warning', 30);
+                    
+                    addLine('[LOCAL OVERRIDE] Cloud intercept failed. Reverting to local exploits.', 'term-error');
+                    await new Promise(r => setTimeout(r, 500));
+                    for(let i=0; i<8; i++) {
+                        const hex = Math.random().toString(16).substr(2, 6).toUpperCase();
+                        addLine(`0x${hex} bypassing firewall proxy _${Math.floor(Math.random()*90)+10}%`, 'term-success');
+                        await new Promise(r => setTimeout(r, 200));
+                    }
+                    addLine('\n[SUCCESS] ACCESS GRANTED. Welcome to the root terminal.', 'term-success');
+                    
+                    setInputState(true);
+                    terminalInput.focus();
+                    break;
+                case 'matrix':
+                    setInputState(false);
+                    for(let i=0; i<30; i++) {
+                        let row = '';
+                        for(let j=0; j<40; j++) row += String.fromCharCode(Math.floor(Math.random() * 95) + 33) + ' ';
+                        addLine(row, 'term-success');
+                        await new Promise(r => setTimeout(r, 50));
+                    }
+                    setInputState(true);
+                    terminalInput.focus();
+                    break;
+                case 'snake':
+                    playSnakeGame();
+                    break;
+                case 'fullscreen':
+                    terminalWindow.classList.toggle('fullscreen');
+                    addLine(`[SYSTEM] Switched to ${terminalWindow.classList.contains('fullscreen') ? 'exclusive' : 'windowed'} mode.`, 'term-info');
+                    break;
+                case 'gui':
+                case 'exit':
+                    addLine('Closing session. Returning to graphical window manager...', 'term-success');
+                    setTimeout(() => terminalOverlay.classList.add('hidden'), 800);
+                    break;
                 case 'clear':
                     terminalBody.innerHTML = '';
                     break;
                 case 'sudo rm -rf /':
                     addLine('Nice try, but I have elevated privileges. 😉', 'term-error');
                     break;
-                case 'exit':
-                    terminalOverlay.classList.add('hidden');
-                    break;
                 default:
+                    if (command.startsWith('sudo ')) {
+                        addLine(`[sudo] password for recruiter:`, 'term-warning');
+                        setInputState(false);
+                        setTimeout(() => {
+                            addLine('Sorry, try again. Your incident will be reported.', 'term-error');
+                            setInputState(true);
+                            terminalInput.focus();
+                        }, 1500);
+                        break;
+                    }
                     addLine(`bash: ${command}: command not found. Type 'help' for available commands.`, 'term-error');
             }
         }
     });
+
+    let isPlaying = false;
+    function playSnakeGame() {
+        if(isPlaying) return;
+        isPlaying = true;
+        terminalInput.disabled = true;
+        terminalInput.value = '';
+
+        const gameContainer = document.createElement('div');
+        gameContainer.className = 'term-line term-success';
+        gameContainer.style.whiteSpace = 'pre';
+        gameContainer.style.lineHeight = '1';
+        gameContainer.style.fontFamily = 'monospace';
+        terminalBody.appendChild(gameContainer);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+
+        const width = 20, height = 10;
+        let snake = [{x: 10, y: 5}];
+        let snakeDir = {x: 1, y: 0};
+        let food = {x: 15, y: 5};
+        let score = 0;
+        let gameInterval;
+        let gameActive = true;
+
+        const renderFrame = (message = '') => {
+            let topBorder = '+' + '-'.repeat(width) + '+\n';
+            let gridStr = topBorder;
+
+            for(let y=0; y<height; y++) {
+                let rowStr = '|';
+                for(let x=0; x<width; x++) {
+                    if (snake[0].x === x && snake[0].y === y) {
+                        rowStr += '@'; // Head
+                    } else if (snake.some(s => s.x === x && s.y === y)) {
+                        rowStr += 'O'; // Body
+                    } else if (food.x === x && food.y === y) {
+                        rowStr += '*'; // Food
+                    } else {
+                        rowStr += ' ';
+                    }
+                }
+                rowStr += '|\n';
+                gridStr += rowStr;
+            }
+            gridStr += topBorder;
+            gridStr += `SCORE: ${score}  | ARROWS/WASD. Press 'Q' to quit.\n${message}`;
+            gameContainer.textContent = gridStr;
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        };
+
+        const handleKey = (e) => {
+            if(!gameActive) return;
+            const k = e.key.toLowerCase();
+            if (['arrowup', 'w'].includes(k) && snakeDir.y !== 1) snakeDir = {x: 0, y: -1};
+            if (['arrowdown', 's'].includes(k) && snakeDir.y !== -1) snakeDir = {x: 0, y: 1};
+            if (['arrowleft', 'a'].includes(k) && snakeDir.x !== 1) snakeDir = {x: -1, y: 0};
+            if (['arrowright', 'd'].includes(k) && snakeDir.x !== -1) snakeDir = {x: 1, y: 0};
+            if (k === 'q') endGame("Game terminated.");
+        };
+
+        const endGame = (msg) => {
+            gameActive = false;
+            clearInterval(gameInterval);
+            document.removeEventListener('keydown', handleKey);
+            renderFrame(`[GAME OVER] ${msg}`);
+            isPlaying = false;
+            terminalInput.disabled = false;
+            setTimeout(() => terminalInput.focus(), 100);
+        };
+
+        document.addEventListener('keydown', handleKey);
+        renderFrame();
+
+        gameInterval = setInterval(() => {
+            const head = {x: snake[0].x + snakeDir.x, y: snake[0].y + snakeDir.y};
+
+            // Hit Wall
+            if (head.x < 0 || head.x >= width || head.y < 0 || head.y >= height) {
+                return endGame("Hit a wall!");
+            }
+
+            // Hit Self
+            if (snake.some(s => s.x === head.x && s.y === head.y)) {
+                return endGame("Ate yourself!");
+            }
+
+            snake.unshift(head); // Move head forward
+
+            // Eat Food
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                food = {
+                    x: Math.floor(Math.random() * width),
+                    y: Math.floor(Math.random() * height)
+                };
+            } else {
+                snake.pop(); // Remove tail if no food eaten
+            }
+
+            renderFrame();
+        }, 150);
+    }
 }
