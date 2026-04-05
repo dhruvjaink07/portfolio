@@ -25,18 +25,20 @@
       "role": "Mobile App Developer Intern",
       "period": "JANUARY 2024 - JULY 2024",
       "description": "Engineered cross-platform mobile applications using Flutter and Dart, integrating complex RESTful APIs to deliver seamless data synchronization. Collaborated closely with UI/UX designers to translate requirements into interactive prototypes. Managed end-to-end deployment cycles, successfully shipping production builds to the Apple App Store and Google Play."
-    },
+    }
+  ],
+  "education": [
     {
-      "id": 2,
-      "company": "Vidyavardhini College of Engineering & Technology",
-      "role": "Computer Engineering Student",
+      "id": 1,
+      "institution": "Vidyavardhini College of Engineering & Technology",
+      "degree": "Bachelor of Engineering in Computer Engineering",
       "period": "2024 - PRESENT",
       "description": "Advancing expertise in software engineering principles, algorithms, and modern system architecture. Actively applying rigorous academic theory to specialized mobile application development and full-stack performance optimization."
     },
     {
-      "id": 3,
-      "company": "Government Polytechnic Mumbai",
-      "role": "Computer Engineering Diploma",
+      "id": 2,
+      "institution": "Government Polytechnic Mumbai",
+      "degree": "Diploma in Computer Engineering",
       "period": "2021 - 2024",
       "description": "Graduated with High Honors (95.58% aggregate). Specialized in core software programming, algorithmic fundamentals, and acquired the advanced technical groundwork for cross-platform scalable mobile development."
     }

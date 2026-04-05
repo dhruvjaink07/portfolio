@@ -251,7 +251,7 @@ function renderHomePage() {
         experienceList.innerHTML = workExperience.map(exp => `
             <div class="experience-item">
                 <div class="experience-header">
-                    <div class="experience-icon">📄</div>
+                    <div class="experience-icon">�</div>
                     <div class="experience-details">
                         <h4>${exp.role}</h4>
                         <p class="experience-company">${exp.company}</p>
@@ -259,6 +259,24 @@ function renderHomePage() {
                     </div>
                 </div>
                 <p class="experience-description">${exp.description}</p>
+            </div>
+        `).join('');
+    }
+
+    // Education
+    const educationList = document.getElementById('education-list');
+    if (educationList) {
+        educationList.innerHTML = portfolioData.education.map(edu => `
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-icon">🎓</div>
+                    <div class="experience-details">
+                        <h4>${edu.degree}</h4>
+                        <p class="experience-company">${edu.institution}</p>
+                        <p class="experience-period">${edu.period}</p>
+                    </div>
+                </div>
+                <p class="experience-description">${edu.description}</p>
             </div>
         `).join('');
     }
@@ -840,10 +858,16 @@ function initCursor() {
     cursorOutline.classList.add('cursor-outline');
     document.body.appendChild(cursorOutline);
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let outlineX = 0;
-    let outlineY = 0;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let preX = mouseX;
+    let preY = mouseY;
+    let outlineX = mouseX;
+    let outlineY = mouseY;
+    let angle = 0;
+    
+    // Low pass filter for angle to prevent jerky rotation
+    let currentAngle = 0;
 
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
@@ -855,9 +879,26 @@ function initCursor() {
         let distX = mouseX - outlineX;
         let distY = mouseY - outlineY;
         
+        let moveSpeed = Math.sqrt(distX * distX + distY * distY);
+        
+        // Calculate angle of movement if there's enough motion
+        if (moveSpeed > 1) {
+            angle = Math.atan2(distY, distX) * (180 / Math.PI) + 90; // Add 90 to face north to movement
+        }
+        
+        // Lerp angle
+        let angleDiff = angle - currentAngle;
+        // Normalize angle difference to avoid spinning the long way around
+        while (angleDiff > 180) angleDiff -= 360;
+        while (angleDiff < -180) angleDiff += 360;
+        
+        currentAngle += angleDiff * 0.15;
+        
         outlineX += distX * 0.15; // easing
         outlineY += distY * 0.15;
 
+        // Apply translate and rotate to compass
+        cursorOutline.style.transform = `translate(-50%, -50%) rotate(${currentAngle}deg)`;
         cursorOutline.style.left = `${outlineX}px`;
         cursorOutline.style.top = `${outlineY}px`;
 

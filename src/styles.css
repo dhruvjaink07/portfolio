@@ -300,13 +300,46 @@ object {
         transition: width var(--transition-base), height var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
     }
 
+    /* Add compass needle inside the outline */
+    .cursor-outline::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 10px solid var(--theme-primary);
+        transition: opacity var(--transition-fast);
+    }
+
+    .cursor-outline::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%) rotate(180deg);
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 10px solid var(--color-border);
+        transition: opacity var(--transition-fast);
+    }
+
     /* Subtle hover state - expands and brightens smoothly without obscuring content */
     .cursor-hovering {
         width: 50px;
         height: 50px;
         background-color: color-mix(in srgb, var(--theme-primary) 8%, transparent);
         border-color: var(--theme-primary);
-        /* blur removed to prevent text illegibility */
+    }
+
+    .cursor-hovering::before,
+    .cursor-hovering::after {
+        opacity: 0; /* Hide compass needles when hovering over buttons */
     }
 }
 
@@ -667,13 +700,21 @@ object {
 }
 
 .profile-card {
-    background-color: var(--theme-primary);
+    background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: var(--spacing-xl);
-    color: var(--color-bg); /* Use bg color to contrast with primary button */
+    color: var(--color-text);
+}
+
+.profile-card .btn-primary {
+    /* Keep primary button visible */
+    background-color: var(--theme-primary);
+    color: var(--color-bg);
 }
 
 .profile-image-container {
