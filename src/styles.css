@@ -1087,10 +1087,11 @@ html.light-theme #bg-canvas {
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     display: grid;
-    align-items: start;
+    align-items: center;
     grid-template-columns: 200px 1fr;
     gap: var(--spacing-xl);
     color: var(--color-text);
+    overflow: hidden;
 }
 
 .profile-card .btn-primary {
@@ -1986,12 +1987,24 @@ html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #006
         grid-template-columns: 1fr;
         text-align: center;
         padding: var(--spacing-md);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .profile-info {
+        width: 100%;
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .profile-image-container {
         margin: 0 auto;
         width: 160px;
         height: 220px;
+        flex-shrink: 0;
     }
     
     .profile-name {
