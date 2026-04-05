@@ -836,10 +836,6 @@ function initCursor() {
     // Only init on non-touch devices
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
-    const cursorDot = document.createElement('div');
-    cursorDot.classList.add('cursor-dot');
-    document.body.appendChild(cursorDot);
-
     const cursorOutline = document.createElement('div');
     cursorOutline.classList.add('cursor-outline');
     document.body.appendChild(cursorOutline);
@@ -852,10 +848,6 @@ function initCursor() {
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        
-        // Instant dot positioning
-        cursorDot.style.left = `${mouseX}px`;
-        cursorDot.style.top = `${mouseY}px`;
     });
 
     // Smooth trailing outline animation
@@ -884,11 +876,9 @@ function initCursor() {
 
             el.addEventListener('mouseenter', () => {
                 cursorOutline.classList.add('cursor-hovering');
-                cursorDot.classList.add('cursor-hovering-dot');
             });
             el.addEventListener('mouseleave', () => {
                 cursorOutline.classList.remove('cursor-hovering');
-                cursorDot.classList.remove('cursor-hovering-dot');
             });
         });
     });

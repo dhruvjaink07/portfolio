@@ -287,48 +287,25 @@ object {
    CUSTOM MAGNETIC CURSOR
    =================================== */
 @media (pointer: fine) {
-    /* Hide default cursor on desktop */
-    body, a, button, input, textarea, select {
-        cursor: none !important;
-    }
-
-    .cursor-dot {
-        width: 8px;
-        height: 8px;
-        background-color: var(--theme-primary);
-        border-radius: 50%;
-        position: fixed;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        z-index: 10000;
-        transition: width var(--transition-fast), height var(--transition-fast), background-color var(--transition-fast);
-    }
-
     .cursor-outline {
-        width: 40px;
-        height: 40px;
-        border: 2px solid var(--theme-primary);
+        width: 30px;
+        height: 30px;
+        border: 2px solid color-mix(in srgb, var(--theme-primary) 50%, transparent);
         border-radius: 50%;
         position: fixed;
         transform: translate(-50%, -50%);
         pointer-events: none;
         z-index: 9999;
-        transition: width var(--transition-bounce), height var(--transition-bounce), border-color var(--transition-base), background-color var(--transition-base);
+        transition: width var(--transition-base), height var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
     }
 
-    /* Hover states for magnetic effect */
-    .cursor-hovering-dot {
-        width: 0;
-        height: 0;
-        opacity: 0;
-    }
-
+    /* Subtle hover state - expands and brightens smoothly without obscuring content */
     .cursor-hovering {
-        width: 60px;
-        height: 60px;
-        background-color: color-mix(in srgb, var(--theme-primary) 15%, transparent);
-        border-color: transparent;
-        backdrop-filter: blur(2px);
+        width: 50px;
+        height: 50px;
+        background-color: color-mix(in srgb, var(--theme-primary) 8%, transparent);
+        border-color: var(--theme-primary);
+        /* blur removed to prevent text illegibility */
     }
 }
 
