@@ -354,7 +354,7 @@ object {
 
 @media (max-width: 768px) {
     .floating-theme-toggle {
-        bottom: 20px;
+        bottom: 90px;
         right: 20px;
         width: 48px;
         height: 48px;
@@ -1893,9 +1893,64 @@ html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #006
 /* Mobile landscape and below - 768px */
 @media (max-width: 768px) {
 
-    /* HIDE SIDEBAR ON MOBILE */
+    /* Transform Sidebar into Bottom Nav on Mobile */
     .sidebar {
+        flex-direction: row;
+        width: 100vw;
+        height: 70px;
+        top: auto;
+        bottom: 0;
+        border-right: none;
+        border-top: var(--border-width) solid var(--color-border);
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        display: flex;
+    }
+
+    .sidebar-header, .live-status, .sidebar-footer {
         display: none !important;
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0;
+        padding: 0 var(--spacing-xs);
+    }
+
+    .nav-link {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: var(--spacing-xs);
+        gap: 4px;
+        font-size: 0.7rem;
+        flex: 1;
+        border-radius: 8px;
+    }
+
+    .nav-link::before {
+        display: none;
+    }
+
+    .nav-link:hover {
+        transform: translateY(-2px);
+    }
+
+    .nav-link svg {
+        margin: 0;
+        width: 22px;
+        height: 22px;
+    }
+
+    .nav-link.active {
+        background-color: var(--theme-primary);
+        color: var(--color-surface);
     }
 
     /* FULL WIDTH CONTENT */
@@ -1903,7 +1958,14 @@ html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #006
         margin-left: 0;
         padding: var(--spacing-md);
         padding-top: var(--spacing-xl);
+        padding-bottom: 90px; /* Space for the bottom navbar */
         width: 100%;
+    }
+    
+    /* Move floating toggle above the bottom nav */
+    .floating-theme-toggle {
+        bottom: 90px;
+        right: 20px;
     }
     
     .page {
@@ -2044,7 +2106,8 @@ html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #006
     /* Tighter spacing */
     .main-content {
         padding: var(--spacing-sm);
-        margin-bottom: 70px;
+        padding-bottom: 90px;
+        margin-bottom: 0;
     }
 
     /* Typography for small screens */
