@@ -195,6 +195,112 @@ object {
 }
 
 /* ===================================
+   SURREAL BACKGROUND ANIMATIONS
+   =================================== */
+.surreal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: opacity var(--transition-base);
+}
+
+[data-theme="dark"] .surreal-bg {
+    opacity: 0.2;
+}
+
+.surreal-orb {
+    position: absolute;
+    filter: blur(80px);
+    border-radius: 50%;
+    animation: drift infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--theme-primary) 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+    animation-duration: 20s;
+}
+
+.orb-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--theme-secondary) 0%, transparent 70%);
+    bottom: -150px;
+    right: -100px;
+    animation-duration: 25s;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--color-yellow) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 30s;
+    animation-delay: -10s;
+}
+
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, -50px) scale(1.1); }
+    66% { transform: translate(-30px, 30px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* ===================================
+   FLOATING THEME TOGGLE
+   =================================== */
+.floating-theme-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border: none;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px var(--theme-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: transform var(--transition-bounce), box-shadow var(--transition-bounce), background-color var(--transition-base), color var(--transition-base);
+    outline: none;
+}
+
+.floating-theme-toggle:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--color-yellow);
+}
+
+.floating-theme-toggle:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--theme-primary);
+}
+
+@media (max-width: 768px) {
+    .floating-theme-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* ===================================
    LAYOUT
    =================================== */
 .sidebar {
