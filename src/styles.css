@@ -344,6 +344,127 @@ object {
 }
 
 /* ===================================
+   DEVELOPER TERMINAL (EASTER EGG)
+   =================================== */
+.terminal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+.terminal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.terminal-window {
+    width: 90%;
+    max-width: 800px;
+    height: 60vh;
+    background: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: var(--font-mono);
+    border: 1px solid #333;
+    animation: luxurious-float 4s ease-in-out infinite;
+}
+
+.terminal-header {
+    background: #2d2d2d;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    user-select: none;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.terminal-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.terminal-btn.red { background: #ff5f56; }
+.terminal-btn.yellow { background: #ffbd2e; }
+.terminal-btn.green { background: #27c93f; }
+
+.terminal-title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    color: #999;
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+.terminal-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.term-line {
+    margin-bottom: 6px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+}
+
+.term-success { color: #27c93f; }
+.term-error { color: #ff5f56; }
+.term-info { color: #38BDF8; font-weight: bold; }
+.term-warning { color: #ffbd2e; }
+
+.terminal-input-line {
+    display: flex;
+    padding: 0 20px 20px;
+    background: #1e1e1e;
+}
+
+.term-prompt {
+    color: #27c93f;
+    margin-right: 10px;
+    font-size: 0.95rem;
+}
+
+#term-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+/* ===================================
    LAYOUT
    =================================== */
 .sidebar {

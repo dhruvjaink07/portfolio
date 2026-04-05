@@ -928,4 +928,94 @@ function initCursor() {
 }
 
 // Start custom cursor
-document.addEventListener('DOMContentLoaded', () => setTimeout(initCursor, 100));
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initCursor, 100);
+    // Initialize Easter Egg Terminal
+    initTerminal();
+});
+
+// ===================================
+// EASTER EGG TERMINAL COMMANDS
+// ===================================
+function initTerminal() {
+    const terminalOverlay = document.getElementById('dev-terminal');
+    const terminalInput = document.getElementById('term-input');
+    const terminalBody = document.getElementById('term-body');
+    const terminalCloseBtn = document.getElementById('term-close');
+    
+    if (!terminalOverlay || !terminalInput) return;
+
+    // Toggle terminal on Ctrl + `
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === '`') {
+            e.preventDefault();
+            terminalOverlay.classList.toggle('hidden');
+            if (!terminalOverlay.classList.contains('hidden')) {
+                terminalInput.focus();
+            }
+        }
+    });
+
+    // Close on red button or escape
+    terminalCloseBtn.addEventListener('click', () => terminalOverlay.classList.add('hidden'));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !terminalOverlay.classList.contains('hidden')) {
+            terminalOverlay.classList.add('hidden');
+        }
+    });
+
+    const addLine = (text, className = '') => {
+        const div = document.createElement('div');
+        div.className = `term-line ${className}`;
+        div.textContent = text;
+        terminalBody.appendChild(div);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    };
+
+    terminalInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const command = terminalInput.value.trim().toLowerCase();
+            addLine(`dhruv@portfolio:~$ ${command}`);
+            terminalInput.value = '';
+
+            switch (command) {
+                case '':
+                    break;
+                case 'help':
+                    addLine('Available commands:');
+                    addLine('  whoami    - Displays profile information');
+                    addLine('  skills    - Lists all core competencies');
+                    addLine('  projects  - Shows recent project builds');
+                    addLine('  contact   - Initiates secure channel');
+                    addLine('  clear     - Clears the terminal screen');
+                    addLine('  exit      - Closes the terminal');
+                    break;
+                case 'whoami':
+                    addLine(portfolioData.profile.bio, 'term-info');
+                    break;
+                case 'skills':
+                    addLine(portfolioData.topSkills.join(' | '), 'term-success');
+                    break;
+                case 'projects':
+                    portfolioData.projects.forEach(p => {
+                        addLine(`> ${p.title}: ${p.technologies.join(', ')}`, 'term-warning');
+                    });
+                    break;
+                case 'contact':
+                    addLine(`Send encrypted transmission to: ${portfolioData.contact.email}`, 'term-success');
+                    break;
+                case 'clear':
+                    terminalBody.innerHTML = '';
+                    break;
+                case 'sudo rm -rf /':
+                    addLine('Nice try, but I have elevated privileges. 😉', 'term-error');
+                    break;
+                case 'exit':
+                    terminalOverlay.classList.add('hidden');
+                    break;
+                default:
+                    addLine(`bash: ${command}: command not found. Type 'help' for available commands.`, 'term-error');
+            }
+        }
+    });
+}

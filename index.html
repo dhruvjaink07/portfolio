@@ -143,22 +143,10 @@
                         </div>
                     </div>
 
-                    <!-- Endorsements Section -->
+                    <!-- Top Skills -->
                     <div class="section-card">
-                        <div class="section-header">
-                            <h3 class="section-title">Endorsements</h3>
-                            <button class="btn btn-outline">View LinkedIn</button>
-                        </div>
-
-                        <div class="endorsements-grid" id="endorsements-grid"></div>
-                    </div>
-                </div>
-
-                <div class="right-column">
-                    <!-- Work Experience -->
-                    <div class="section-card">
-                        <h3 class="section-title">Work experience</h3>
-                        <div class="experience-list" id="experience-list"></div>
+                        <h3 class="section-title">Top Skills</h3>
+                        <div class="skills-badges" id="top-skills"></div>
                     </div>
 
                     <!-- Education -->
@@ -166,13 +154,9 @@
                         <h3 class="section-title">Education</h3>
                         <div class="experience-list" id="education-list"></div>
                     </div>
+                </div>
 
-                    <!-- Top Skills -->
-                    <div class="section-card">
-                        <h3 class="section-title">Top Skills</h3>
-                        <div class="skills-badges" id="top-skills"></div>
-                    </div>
-                    
+                <div class="right-column">
                     <!-- GitHub Contribution Graph -->
                     <div class="section-card">
                         <div class="section-header">
@@ -181,6 +165,12 @@
                         <div class="github-graph-container">
                             <img src="https://ghchart.rshah.org/0EA5E9/dhruvjaink07" alt="Dhruv's Github chart" />
                         </div>
+                    </div>
+
+                    <!-- Work Experience -->
+                    <div class="section-card">
+                        <h3 class="section-title">Work experience</h3>
+                        <div class="experience-list" id="experience-list"></div>
                     </div>
                 </div>
             </div>
@@ -318,6 +308,30 @@
         </section>
     </main>
 
+    <!-- DEVELOPER EASTER EGG TERMINAL -->
+    <div id="dev-terminal" class="terminal-overlay hidden">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="terminal-btn red" id="term-close"></span>
+                    <span class="terminal-btn yellow"></span>
+                    <span class="terminal-btn green"></span>
+                </div>
+                <div class="terminal-title">dhruv@portfolio: ~</div>
+            </div>
+            <div class="terminal-body" id="term-body">
+                <div class="term-line term-info">Dhruv OS v1.0.0</div>
+                <div class="term-line">Type 'help' to see available commands. Welcome, recruiter!</div>
+            </div>
+            <div class="terminal-input-line">
+                <span class="term-prompt">dhruv@portfolio:~$</span>
+                <input type="text" id="term-input" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <!-- Lottie Player for advanced animations -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script type="module" src="src/script.js"></script>
 </body>
 
