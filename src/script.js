@@ -67,6 +67,8 @@ function initializeApp() {
     initMagneticButtons();
     initCommandPalette();
     initScrambleEffect();
+    initDynamicTab();
+    initTimeBasedEnvironment();
     
     // Setup project filters
     setupProjectFilters();
@@ -1238,19 +1240,55 @@ function initScrambleEffect() {
         }, 30);
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if(entry.isIntersecting && !entry.target.dataset.scrambled) {
                 entry.target.dataset.scrambled = "true";
                 scramble(entry.target);
+                obs.unobserve(entry.target); // Stop tracking after it animates once
             }
         });
     }, { threshold: 0.1 });
 
     titles.forEach(t => {
         observer.observe(t);
-        t.addEventListener('mouseover', () => scramble(t));
     });
+}
+
+function initDynamicTab() {
+    let originalTitle = document.title || "Dhruv Jain | Portfolio";
+    let link = document.querySelector("link[rel~='icon']");
+    
+    if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+    }
+
+    const setFavicon = (emoji) => {
+        // Create an SVG on the fly to use as a favicon
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">${emoji}</text></svg>`;
+        link.href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+    };
+
+    // Set initial active state
+    setFavicon('👨‍💻');
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            document.title = "Come back soon! 🥺";
+            setFavicon('💤');
+        } else {
+            document.title = "Welcome back! 🚀";
+            setFavicon('👨‍💻');
+            setTimeout(() => {
+                document.title = originalTitle;
+            }, 2000);
+        }
+    });
+
+    // Log Easter Egg
+    console.log("%cFavicon logic initialized. Try switching tabs!", "color: #94A3B8; font-style: italic;");
 }
 
 function initCommandPalette() {
@@ -1659,5 +1697,41 @@ function initTerminal() {
 
             renderFrame();
         }, 150);
+    }
+}
+
+function initTimeBasedEnvironment() {
+    const hour = new Date().getHours();
+    const mountainBg = document.querySelector('.mountain-bg');
+    if (!mountainBg) return;
+
+    let timeClass = '';
+    if (hour >= 5 && hour < 8) {
+        timeClass = 'time-dawn';
+    } else if (hour >= 8 && hour < 17) {
+        timeClass = 'time-day';
+    } else if (hour >= 17 && hour < 19) {
+        timeClass = 'time-dusk';
+    } else {
+        timeClass = 'time-night';
+    }
+    
+    // Assign the time-based class to switch out backgrounds dynamically
+    mountainBg.className = `mountain-bg ${timeClass}`;
+
+    // If it's night, inject shooting stars
+    if (timeClass === 'time-night' && !document.querySelector('.shooting-stars')) {
+        const starContainer = document.createElement('div');
+        starContainer.className = 'shooting-stars';
+        
+        for (let i = 0; i < 7; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = `${Math.random() * 50}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starContainer.appendChild(star);
+        }
+        mountainBg.appendChild(starContainer);
     }
 }
