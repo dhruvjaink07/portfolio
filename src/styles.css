@@ -76,6 +76,7 @@
     --shadow-sm: 4px 4px 0 #000;
     --shadow-md: 6px 6px 0 #000;
     --shadow-lg: 8px 8px 0 #000;
+    --blend-mode: screen; /* Used for gh chart inversion if desired */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -974,8 +975,28 @@ object {
 .skill-badge:hover {
     background-color: var(--theme-primary);
     color: var(--color-bg);
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-color: var(--theme-primary);
+}
+
+/* GitHub Graph */
+.github-graph-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: var(--spacing-sm);
+    background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid var(--color-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.github-graph-container img {
+    min-width: 600px;
+    width: 100%;
+    display: block;
+    mix-blend-mode: var(--blend-mode, normal); /* Optional for dark mode adjustment */
 }
 
 /* ===================================
