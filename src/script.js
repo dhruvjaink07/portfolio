@@ -13,10 +13,35 @@ const SOCIAL_ICONS = {
 };
 
 // ===================================
+// BROWSER-SPECIFIC THEMES (EASTER EGG)
+// ===================================
+function applyBrowserSpecificTheme() {
+    const userAgent = navigator.userAgent;
+    let browserClass = 'browser-unknown';
+
+    if (userAgent.match(/firefox|fxios/i)) {
+        browserClass = 'browser-firefox';
+    } else if (userAgent.match(/edg/i)) {
+        browserClass = 'browser-edge';
+    } else if (userAgent.match(/opr\//i)) {
+        browserClass = 'browser-opera';
+    } else if (userAgent.match(/chrome|chromium|crios/i)) {
+        browserClass = 'browser-chrome';
+    } else if (userAgent.match(/safari/i)) {
+        browserClass = 'browser-safari';
+    }
+
+    document.documentElement.classList.add(browserClass);
+    console.log(`%c✨ Custom ${browserClass.replace('browser-', '')} experience loaded! ✨`, 'color: #34D399; font-size: 14px; font-weight: bold;');
+}
+
+// ===================================
 // APP INITIALIZATION
 // ===================================
 function initializeApp() {
     if (!portfolioData) return;
+    
+    applyBrowserSpecificTheme();
     initEasterEggs();
 
     // Render all pages

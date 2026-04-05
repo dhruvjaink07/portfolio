@@ -1509,6 +1509,55 @@ object {
 }
 
 /* ===================================
+   EASTER EGGS & BROWSER-SPECIFIC THEMES
+   =================================== */
+
+/* Firefox: Mozilla Orange & Fiery Vibes */
+html.browser-firefox {
+    --theme-primary: #FF7139;
+    --theme-sidebar: #FFF0E6;
+}
+html.browser-firefox.dark-theme {
+    --theme-sidebar: #2D1405;
+}
+html.browser-firefox .sidebar { border-right-width: 3px; border-right-color: #FF7139; }
+
+/* Edge: Microsoft Blue */
+html.browser-edge {
+    --theme-primary: #0078D7;
+    --theme-primary-dark: #005DA6;
+    --theme-sidebar: #E5F1FB;
+}
+html.browser-edge.dark-theme {
+    --theme-sidebar: #001A33;
+}
+html.browser-edge .sidebar { border-right-width: 3px; border-right-color: #0078D7; }
+
+/* Chrome: Google Green/Yellow Accent */
+html.browser-chrome {
+    --theme-primary: #FCC934;
+    --color-sunset: #34A853; 
+    --theme-sidebar: #F1F8F4;
+}
+html.browser-chrome.dark-theme {
+    --theme-sidebar: #091A10;
+}
+html.browser-chrome .sidebar { border-right-width: 3px; border-right-color: #FCC934; }
+
+/* Safari: Apple Clean & Minimalist */
+html.browser-safari {
+    --theme-primary: #0066CC;
+    --theme-sidebar: #F5F5F7;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+html.browser-safari.dark-theme {
+    --theme-sidebar: #1C1C1E;
+    --theme-primary: #0A84FF;
+}
+html.browser-safari .sidebar { border-right-width: 3px; border-right-color: #0066CC; }
+
+
+/* ===================================
    RESPONSIVE DESIGN
    =================================== */
 
