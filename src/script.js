@@ -1,213 +1,15 @@
+import { prepare, layout } from '@chenglou/pretext';
+import VanillaTilt from 'vanilla-tilt';
+import portfolioData from '../data.json';
+
 // ===================================
-// DATA - EMBEDDED DIRECTLY
+// SHARED ASSETS & CONSTANTS
 // ===================================
-const portfolioData = {
-    "profile": {
-        "name": "Dhruv Jain",
-        "title": "Mobile App Developer | Flutter Developer",
-        "bio": "Aspiring Flutter Developer passionate about creating user-friendly mobile applications. Eager to enhance skills in app development, UI/UX design, and app distribution. Committed to continuous learning and growth in mobile technology. Dedicated to delivering high-quality applications with exceptional user experiences.",
-        "image": "assets/dhruvjain.jpg",
-        "stats": {
-            "experience": "1+",
-            "projects": 3
-        },
-        "social": {
-            "twitter": "https://twitter.com",
-            "linkedin": "https://www.linkedin.com/in/dhruv-jain-0ab564251",
-            "github": "https://github.com/dhruvjaink07",
-            "instagram": "https://instagram.com"
-        },
-        "cv": "assets/resume.pdf"
-    },
-    "settings": {
-        "showEndorsements": false
-    },
-    "workExperience": [
-        {
-            "id": 1,
-            "company": "Digilateral Solutions",
-            "role": "Mobile App Developer Intern",
-            "period": "JANUARY 2024 - JULY 2024",
-            "description": "Developed mobile apps using Flutter with multiple API integration. Collaborated with the design team to make user-friendly apps. Deployed and distributed apps on AppStore and PlayStore."
-        }
-    ],
-    "endorsements": [
-        {
-            "id": 1,
-            "name": "Digilateral Solutions Team",
-            "title": "Development Team Lead",
-            "verified": true,
-            "testimonial": "Dhruv is a dedicated and quick learner who consistently delivered quality work during his internship. His Flutter development skills and ability to collaborate with the design team made him a valuable asset to our projects.",
-            "linkedinRecommendations": 5
-        },
-        {
-            "id": 2,
-            "name": "Project Mentor",
-            "title": "Senior Mobile Developer",
-            "verified": true,
-            "testimonial": "Working with Dhruv on the Neuro iPad app was excellent. He demonstrated strong technical skills in Flutter and showed great attention to detail in implementing features and integrating analytics."
-        },
-        {
-            "id": 3,
-            "name": "Academic Supervisor",
-            "title": "Professor, Computer Engineering",
-            "verified": true,
-            "testimonial": "Dhruv is an exceptional student with outstanding academic performance (95.58%). His passion for mobile development and commitment to learning new technologies sets him apart."
-        }
-    ],
-    "topSkills": [
-        "Flutter",
-        "Dart",
-        "Java",
-        "XCode",
-        "SQL"
-    ],
-    "skills": {
-        "frontend": [
-            {
-                "name": "Flutter",
-                "icon": "📱",
-                "level": "EXPERT",
-                "description": "Primary framework for building cross-platform mobile applications with beautiful user interfaces.",
-                "projectCount": 3
-            },
-            {
-                "name": "Dart",
-                "icon": "🎯",
-                "level": "EXPERT",
-                "description": "Programming language for Flutter development, enabling fast and efficient mobile app creation.",
-                "projectCount": 3
-            },
-            {
-                "name": "Java",
-                "icon": "☕",
-                "level": "ADVANCED",
-                "description": "Object-oriented language used for Android development and backend services.",
-                "projectCount": 2
-            },
-            {
-                "name": "XML",
-                "icon": "📄",
-                "level": "INTERMEDIATE",
-                "description": "Markup language for Android UI layouts and configuration files.",
-                "projectCount": 2
-            }
-        ],
-        "backend": [
-            {
-                "name": "Node.js",
-                "icon": "🟢",
-                "level": "INTERMEDIATE",
-                "description": "JavaScript runtime for building scalable server-side applications and APIs.",
-                "projectCount": 2
-            },
-            {
-                "name": "SQL",
-                "icon": "🗄️",
-                "level": "ADVANCED",
-                "description": "Database query language for managing and manipulating relational databases.",
-                "projectCount": 3
-            },
-            {
-                "name": "Python",
-                "icon": "🐍",
-                "level": "INTERMEDIATE",
-                "description": "Versatile programming language for scripting, automation, and backend development.",
-                "projectCount": 2
-            },
-            {
-                "name": "REST APIs",
-                "icon": "🔌",
-                "level": "ADVANCED",
-                "description": "Integration with RESTful services for data fetching and backend communication.",
-                "projectCount": 3
-            }
-        ],
-        "tools": [
-            {
-                "name": "XCode",
-                "icon": "🍎",
-                "level": "ADVANCED",
-                "description": "Apple's IDE for iOS development, app distribution, and AppStore deployment.",
-                "projectCount": 2
-            },
-            {
-                "name": "Android Studio",
-                "icon": "🤖",
-                "level": "EXPERT",
-                "description": "Official IDE for Android development with powerful debugging and testing tools.",
-                "projectCount": 3
-            },
-            {
-                "name": "Git / GitHub",
-                "icon": "🔀",
-                "level": "ADVANCED",
-                "description": "Version control system for code management and collaboration.",
-                "projectCount": 3
-            },
-            {
-                "name": "Sentry.io",
-                "icon": "🐛",
-                "level": "INTERMEDIATE",
-                "description": "Error tracking and monitoring platform for app stability and performance.",
-                "projectCount": 1
-            },
-            {
-                "name": "Google Analytics",
-                "icon": "📊",
-                "level": "INTERMEDIATE",
-                "description": "Analytics platform for tracking user behavior and app performance metrics.",
-                "projectCount": 1
-            },
-            {
-                "name": "Firebase",
-                "icon": "🔥",
-                "level": "INTERMEDIATE",
-                "description": "Google's mobile platform for app development with backend services.",
-                "projectCount": 2
-            }
-        ]
-    },
-    "projects": [
-        {
-            "id": 1,
-            "title": "Neuro - iPad VA",
-            "description": "An app that showcases data about medicines in an interactive way to doctors. Developed using Flutter for iPad device with data persistence, Sentry.io error tracking, and Google Analytics integration.",
-            "technologies": ["Flutter", "Dart", "XCode", "Sentry.io", "Analytics"],
-            "category": "mobile",
-            "color": "#E9D5FF",
-            "icon": "💊",
-            "demoUrl": "https://apps.apple.com",
-            "codeUrl": "https://github.com/dhruvjaink07"
-        },
-        {
-            "id": 2,
-            "title": "Quiz App",
-            "description": "Interactive Quiz App designed to boost doctor engagement with pharmaceutical brands. Developed for iPad with data persistence and analytics tracking. Successfully distributed on AppStore Connect.",
-            "technologies": ["Flutter", "Dart", "XCode", "Analytics"],
-            "category": "mobile",
-            "color": "#BBF7D0",
-            "icon": "❓",
-            "demoUrl": "https://apps.apple.com",
-            "codeUrl": "https://github.com/dhruvjaink07"
-        },
-        {
-            "id": 3,
-            "title": "dSangeet - Android Music Player",
-            "description": "A native Android music player app that fetches music from the user's device after permission is granted. Built using Java and XML in Android Studio with intuitive UI and smooth playback.",
-            "technologies": ["Java", "XML", "Android Studio"],
-            "category": "mobile",
-            "color": "#FECACA",
-            "icon": "🎵",
-            "demoUrl": "https://demo.example.com",
-            "codeUrl": "https://github.com/dhruvjaink07"
-        }
-    ],
-    "contact": {
-        "email": "dhruvkishorjain2508@gmail.com",
-        "location": "Mumbai, Maharashtra",
-        "availability": "Open to opportunities"
-    }
+const SOCIAL_ICONS = {
+    twitter: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>`,
+    linkedin: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>`,
+    github: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>`,
+    instagram: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`
 };
 
 // ===================================
@@ -222,9 +24,11 @@ function initializeApp() {
     renderSkillsPage();
     renderContactPage();
 
-    // Setup navigation
+    // Setup Navigation, Theming, and Observers
     setupNavigation();
-
+    setupThemeToggle();
+    setupScrollAnimations();
+    
     // Setup project filters
     setupProjectFilters();
 
@@ -242,6 +46,82 @@ function initializeApp() {
     
     // Setup external links
     setupExternalLinks();
+}
+
+// ===================================
+// THEMING (Dark/Light mode)
+// ===================================
+function setupThemeToggle() {
+    const themeBtn = document.getElementById('theme-toggle');
+    const sunIcon = themeBtn.querySelector('.sun-icon');
+    const moonIcon = themeBtn.querySelector('.moon-icon');
+
+    // Check system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    themeBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+    });
+}
+
+// ===================================
+// SCROLL ANIMATIONS / INTERSECTION
+// ===================================
+function setupScrollAnimations() {
+    // Add fade-in hooks to items
+    const staggerItems = document.querySelectorAll(
+        '.project-card, .skill-card, .section-card, .endorsement-card, .experience-item, .page-title, .page-subtitle'
+    );
+    staggerItems.forEach(el => el.classList.add('fade-in'));
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add a small delay based on index to create a stagger effect on load
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                    // Initialize tilt if it's a project card or skill card
+                    if(entry.target.classList.value.includes('project-card') || entry.target.classList.value.includes('skill-card')) {
+                        VanillaTilt.init(entry.target, {
+                            max: 12,
+                            speed: 400,
+                            glare: true,
+                            "max-glare": 0.2,
+                        });
+                    }
+                }, index * 50);
+                
+                // Optional: Stop observing once faded in to avoid repeated animations 
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1, // element 10% visible
+        rootMargin: '0px 0px -50px 0px' 
+    });
+
+    staggerItems.forEach(el => observer.observe(el));
 }
 
 // ===================================
@@ -301,9 +181,19 @@ function navigateToPage(page) {
 function renderHomePage() {
     const { profile, workExperience, endorsements, topSkills } = portfolioData;
 
-    // Profile Image
-    const profileImage = document.getElementById('profile-image');
-    profileImage.style.backgroundImage = `url('${profile.image}')`;
+    // Profile Image - formalized without broken webp source
+    const profileImageContainer = document.getElementById('profile-image');
+    if (profileImageContainer) {
+        profileImageContainer.style.backgroundImage = '';
+        profileImageContainer.innerHTML = `
+            <img src="${profile.image.startsWith('/') ? profile.image : '/' + profile.image}" 
+                 alt="${profile.name} Profile" 
+                 loading="eager" 
+                 width="180" 
+                 height="240" 
+                 style="object-fit: cover; width: 100%; height: 100%;">
+        `;
+    }
 
     // Header avatars
     ['header-avatar', 'projects-avatar', 'skills-avatar'].forEach(id => {
@@ -316,20 +206,35 @@ function renderHomePage() {
     // Profile Info
     document.getElementById('profile-name').textContent = profile.name;
     document.getElementById('profile-title').textContent = profile.title;
-    document.getElementById('profile-bio').textContent = profile.bio;
+    
+    // Bio Text using pretext for calculating text height and pre-allocating space to prevent CLS
+    const bioElement = document.getElementById('profile-bio');
+    bioElement.textContent = profile.bio;
+    
+    // Defer pretext calculation to run immediately after DOM mounts so width is known
+    requestAnimationFrame(() => {
+        const computed = getComputedStyle(bioElement);
+        // Canvas measureText ideally needs explicit pixel sizing for precision
+        const fontStr = `${computed.fontSize} ${computed.fontFamily}`;
+        const bioWidth = bioElement.clientWidth || 300;
+        const lineHeight = parseFloat(computed.lineHeight) || 24.32;
+        
+        try {
+            const prepared = prepare(profile.bio, fontStr);
+            const { height } = layout(prepared, bioWidth, lineHeight);
+            // Pin the exact height to prevent layout shifts
+            bioElement.style.height = `${height}px`;
+        } catch (error) {
+            console.error('Pretext calculation failed:', error);
+        }
+    });
 
     // Social Links
     const socialLinks = document.getElementById('social-links');
-    const socialIcons = {
-        twitter: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>`,
-        linkedin: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>`,
-        github: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>`,
-        instagram: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`
-    };
 
     socialLinks.innerHTML = Object.entries(profile.social).map(([platform, url]) => `
         <a href="${url}" class="social-link" target="_blank" rel="noopener">
-            ${socialIcons[platform]}
+            ${SOCIAL_ICONS[platform]}
         </a>
     `).join('');
 
@@ -562,16 +467,10 @@ function renderContactPage() {
 
     // Social links
     const contactSocial = document.getElementById('contact-social');
-    const socialIcons = {
-        twitter: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>`,
-        linkedin: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>`,
-        github: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>`,
-        instagram: `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`
-    };
 
     contactSocial.innerHTML = Object.entries(profile.social).map(([platform, url]) => `
         <a href="${url}" class="social-link" target="_blank" rel="noopener">
-            ${socialIcons[platform]}
+            ${SOCIAL_ICONS[platform]}
         </a>
     `).join('');
 }

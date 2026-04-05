@@ -1,11 +1,10 @@
 /* ===================================
-   CSS CUSTOM PROPERTIES
+   CSS CUSTOM PROPERTIES & THEMING
    =================================== */
 :root {
     /* Color Palette */
     --color-mint: #A8D5BA;
     --color-mint-dark: #8BC4A3;
-    --color-cream: #FFF8E7;
     --color-yellow: #FFD93D;
     --color-yellow-dark: #FFC107;
     --color-pink: #FFB6C1;
@@ -13,14 +12,31 @@
     --color-blue: #BFDBFE;
     --color-green: #BBF7D0;
     --color-red: #FECACA;
-    --color-black: #1A1A1A;
-    --color-gray: #6B7280;
-    --color-gray-light: #F3F4F6;
+    
+    /* Light Theme (Default) */
+    --color-bg: #FFF8E7; /* replacing --color-cream */
+    --color-text: #1A1A1A; /* replacing --color-black */
     --color-border: #000000;
+    --color-surface: #FFFFFF;
+    --color-surface-hover: #F3F4F6;
+    --color-text-muted: #6B7280;
 
-    /* Typography */
+    /* Theme overrides using semantic names */
+    --theme-primary: var(--color-yellow);
+    --theme-primary-dark: var(--color-yellow-dark);
+    --theme-sidebar: var(--color-mint);
+
+    /* Typography - Fluid via clamp() */
     --font-mono: 'Space Mono', monospace;
     --font-sans: 'Inter', sans-serif;
+    
+    --text-xs: clamp(0.7rem, 1vw, 0.75rem);
+    --text-sm: clamp(0.8rem, 1.25vw, 0.9rem);
+    --text-base: clamp(0.95rem, 1.5vw, 1rem);
+    --text-lg: clamp(1.1rem, 2vw, 1.25rem);
+    --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
+    --text-2xl: clamp(1.5rem, 3.5vw, 2rem);
+    --text-3xl: clamp(2rem, 5vw, 2.5rem);
 
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -40,9 +56,44 @@
     --transition-slow: 350ms ease;
 
     /* Shadows */
-    --shadow-sm: 4px 4px 0 rgba(0, 0, 0, 1);
-    --shadow-md: 6px 6px 0 rgba(0, 0, 0, 1);
-    --shadow-lg: 8px 8px 0 rgba(0, 0, 0, 1);
+    --shadow-sm: 4px 4px 0 var(--color-text);
+    --shadow-md: 6px 6px 0 var(--color-text);
+    --shadow-lg: 8px 8px 0 var(--color-text);
+}
+
+[data-theme="dark"] {
+    --color-bg: #121212;
+    --color-text: #F3F4F6;
+    --color-border: #4B5563;
+    --color-surface: #1E1E1E;
+    --color-surface-hover: #2D2D2D;
+    --color-text-muted: #9CA3AF;
+    
+    --theme-primary: #D97706; /* distinct yellow/orange for dark mode */
+    --theme-primary-dark: #B45309;
+    --theme-sidebar: #064E3B; /* deeper mint/green */
+    
+    --shadow-sm: 4px 4px 0 #000;
+    --shadow-md: 6px 6px 0 #000;
+    --shadow-lg: 8px 8px 0 #000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        /* Matches [data-theme="dark"] vars but triggered by OS */
+        --color-bg: #121212;
+        --color-text: #F3F4F6;
+        --color-border: #4B5563;
+        --color-surface: #1E1E1E;
+        --color-surface-hover: #2D2D2D;
+        --color-text-muted: #9CA3AF;
+        --theme-primary: #D97706;
+        --theme-primary-dark: #B45309;
+        --theme-sidebar: #064E3B;
+        --shadow-sm: 4px 4px 0 #000;
+        --shadow-md: 6px 6px 0 #000;
+        --shadow-lg: 8px 8px 0 #000;
+    }
 }
 
 /* ===================================
@@ -61,12 +112,35 @@ html {
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--color-cream);
-    color: var(--color-black);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: var(--text-base);
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Accessibility Focus Outline */
+:focus-visible {
+    outline: 3px dashed var(--theme-primary);
+    outline-offset: 3px;
+}
+
+/* Skip to main content link for screen readers */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--theme-primary);
+    color: var(--color-text);
+    padding: 8px;
+    z-index: 1000;
+    transition: top var(--transition-fast);
+}
+.skip-link:focus {
+    top: 0;
 }
 
 h1,
@@ -129,12 +203,13 @@ object {
     top: 0;
     width: 200px;
     height: 100vh;
-    background-color: var(--color-mint);
+    background-color: var(--theme-sidebar);
     border-right: var(--border-width) solid var(--color-border);
     display: flex;
     flex-direction: column;
     padding: var(--spacing-lg);
     z-index: 100;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .sidebar-header {
@@ -147,16 +222,16 @@ object {
 .logo {
     width: 32px;
     height: 32px;
-    background-color: var(--color-black);
+    background-color: var(--color-text);
     border: var(--border-width) solid var(--color-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-mint);
+    color: var(--theme-sidebar);
 }
 
 .brand {
-    font-size: 1.25rem;
+    font-size: var(--text-lg);
     font-family: var(--font-mono);
     font-weight: 700;
 }
@@ -185,8 +260,8 @@ object {
 }
 
 .nav-link.active {
-    background-color: var(--color-black);
-    color: var(--color-mint);
+    background-color: var(--color-text);
+    color: var(--theme-sidebar);
 }
 
 .nav-link svg {
@@ -319,21 +394,23 @@ object {
    TYPOGRAPHY
    =================================== */
 .page-title {
-    font-size: 2.5rem;
+    font-size: var(--text-3xl);
     font-family: var(--font-mono);
     margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
 }
 
 .page-subtitle {
-    font-size: 1rem;
-    color: var(--color-gray);
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
     margin-bottom: var(--spacing-xl);
 }
 
 .section-title {
-    font-size: 1.25rem;
+    font-size: var(--text-xl);
     font-family: var(--font-mono);
     margin-bottom: var(--spacing-lg);
+    color: var(--color-text);
 }
 
 /* ===================================
@@ -356,30 +433,30 @@ object {
 }
 
 .btn-primary {
-    background-color: var(--color-yellow);
-    color: var(--color-black);
+    background-color: var(--theme-primary);
+    color: var(--color-bg);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-yellow-dark);
+    background-color: var(--theme-primary-dark);
 }
 
 .btn-secondary {
-    background-color: white;
-    color: var(--color-black);
+    background-color: var(--color-surface);
+    color: var(--color-text);
 }
 
 .btn-secondary:hover {
-    background-color: var(--color-gray-light);
+    background-color: var(--color-surface-hover);
 }
 
 .btn-outline {
     background-color: transparent;
-    color: var(--color-black);
+    color: var(--color-text);
 }
 
 .btn-outline:hover {
-    background-color: white;
+    background-color: var(--color-surface);
 }
 
 /* ===================================
@@ -425,12 +502,13 @@ object {
 }
 
 .profile-card {
-    background-color: var(--color-yellow);
+    background-color: var(--theme-primary);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: var(--spacing-xl);
+    color: var(--color-bg); /* Use bg color to contrast with primary button */
 }
 
 .profile-image-container {
@@ -467,7 +545,8 @@ object {
 .social-link {
     width: 40px;
     height: 40px;
-    background-color: white;
+    background-color: var(--color-surface);
+    color: var(--color-text);
     border: var(--border-width) solid var(--color-border);
     display: flex;
     align-items: center;
@@ -476,8 +555,8 @@ object {
 }
 
 .social-link:hover {
-    background-color: var(--color-black);
-    color: var(--color-yellow);
+    background-color: var(--color-border);
+    color: var(--theme-primary);
     transform: translate(-2px, -2px);
     box-shadow: var(--shadow-sm);
 }
@@ -490,7 +569,7 @@ object {
 }
 
 .stat-box {
-    background-color: white;
+    background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-md);
     text-align: center;
@@ -523,7 +602,7 @@ object {
 }
 
 .section-card {
-    background-color: white;
+    background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     overflow: hidden;
@@ -545,7 +624,7 @@ object {
 
 .experience-item {
     padding: var(--spacing-lg);
-    background-color: var(--color-gray-light);
+    background-color: var(--color-surface-hover);
     border: var(--border-width) solid var(--color-border);
     transition: all var(--transition-base);
 }
@@ -565,7 +644,7 @@ object {
 .experience-icon {
     width: 48px;
     height: 48px;
-    background-color: white;
+    background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     display: flex;
     align-items: center;
@@ -606,7 +685,7 @@ object {
 }
 
 .endorsement-card {
-    background-color: white;
+    background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-lg);
     transition: all var(--transition-base);
@@ -644,12 +723,12 @@ object {
 .verified-badge {
     width: 20px;
     height: 20px;
-    background-color: var(--color-black);
+    background-color: var(--color-border);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--color-surface);
     font-size: 0.7rem;
 }
 
@@ -667,7 +746,8 @@ object {
 .references-btn {
     width: 100%;
     padding: var(--spacing-sm);
-    background-color: white;
+    background-color: var(--color-surface);
+    color: var(--color-text);
     border: var(--border-width) solid var(--color-border);
     font-weight: 600;
     font-size: 0.85rem;
@@ -675,8 +755,8 @@ object {
 }
 
 .references-btn:hover {
-    background-color: var(--color-black);
-    color: white;
+    background-color: var(--color-border);
+    color: var(--color-surface);
 }
 
 .linkedin-stats {
@@ -711,7 +791,7 @@ object {
 
 .skill-badge {
     padding: var(--spacing-sm) var(--spacing-md);
-    background-color: white;
+    background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     font-family: var(--font-mono);
     font-weight: 600;
@@ -720,7 +800,8 @@ object {
 }
 
 .skill-badge:hover {
-    background-color: var(--color-yellow);
+    background-color: var(--theme-primary);
+    color: var(--color-bg);
     transform: translate(-2px, -2px);
     box-shadow: var(--shadow-sm);
 }
@@ -743,7 +824,8 @@ object {
 
 .filter-btn {
     padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: white;
+    background-color: var(--color-surface);
+    color: var(--color-text);
     border: var(--border-width) solid var(--color-border);
     font-weight: 600;
     font-size: 0.9rem;
@@ -756,8 +838,8 @@ object {
 }
 
 .filter-btn.active {
-    background-color: var(--color-black);
-    color: white;
+    background-color: var(--color-border);
+    color: var(--color-surface);
 }
 
 .projects-grid {
@@ -767,7 +849,7 @@ object {
 }
 
 .project-card {
-    background-color: white;
+    background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     overflow: hidden;
     transition: all var(--transition-base);
@@ -822,9 +904,10 @@ object {
 
 .tech-badge {
     padding: 0.25rem 0.75rem;
-    background-color: var(--color-gray-light);
+    background-color: var(--color-surface-hover);
+    color: var(--color-text);
     border: 2px solid var(--color-border);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
 }
 
@@ -836,6 +919,8 @@ object {
 .project-btn {
     flex: 1;
     padding: var(--spacing-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text);
     border: var(--border-width) solid var(--color-border);
     font-weight: 600;
     font-size: 0.85rem;
@@ -847,17 +932,18 @@ object {
 }
 
 .project-btn:hover {
-    background-color: var(--color-black);
-    color: white;
+    background-color: var(--color-border);
+    color: var(--color-surface);
 }
 
 .code-btn {
-    background-color: var(--color-yellow);
+    background-color: var(--theme-primary);
+    color: var(--color-bg);
 }
 
 .code-btn:hover {
-    background-color: var(--color-yellow-dark);
-    color: var(--color-black);
+    background-color: var(--theme-primary-dark);
+    color: var(--color-bg);
 }
 
 /* ===================================
@@ -907,7 +993,7 @@ object {
 }
 
 .skill-card {
-    background-color: white;
+    background-color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     transition: all var(--transition-base);
@@ -928,7 +1014,7 @@ object {
 .skill-icon {
     width: 56px;
     height: 56px;
-    background-color: var(--color-gray-light);
+    background-color: var(--color-surface-hover);
     border: var(--border-width) solid var(--color-border);
     display: flex;
     align-items: center;
@@ -938,8 +1024,8 @@ object {
 
 .skill-level {
     padding: 0.25rem 0.75rem;
-    background-color: var(--color-black);
-    color: white;
+    background-color: var(--color-border);
+    color: var(--color-surface);
     border: var(--border-width) solid var(--color-border);
     font-size: 0.7rem;
     font-weight: 700;
@@ -947,13 +1033,13 @@ object {
 }
 
 .skill-level.advanced {
-    background-color: white;
-    color: var(--color-black);
+    background-color: var(--color-surface);
+    color: var(--color-text);
 }
 
 .skill-level.intermediate {
-    background-color: var(--color-gray-light);
-    color: var(--color-black);
+    background-color: var(--color-surface-hover);
+    color: var(--color-text);
 }
 
 .skill-name {
@@ -974,12 +1060,13 @@ object {
     justify-content: space-between;
     align-items: center;
     padding-top: var(--spacing-md);
-    border-top: 2px solid var(--color-gray-light);
+    border-top: 2px solid var(--color-border);
 }
 
 .view-projects-btn {
     padding: var(--spacing-sm) var(--spacing-md);
-    background-color: white;
+    background-color: var(--color-surface);
+    color: var(--color-text);
     border: var(--border-width) solid var(--color-border);
     font-weight: 600;
     font-size: 0.85rem;
@@ -990,8 +1077,8 @@ object {
 }
 
 .view-projects-btn:hover {
-    background-color: var(--color-black);
-    color: white;
+    background-color: var(--color-border);
+    color: var(--color-surface);
 }
 
 /* ===================================
@@ -1622,6 +1709,45 @@ object {
 /* ===================================
    ANIMATIONS
    =================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .fade-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
+/* Skeleton Loader */
+.skeleton {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-surface) 25%, var(--color-surface-hover) 50%, var(--color-surface) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite linear;
+    border-radius: var(--border-radius);
+    min-height: 20px;
+    display: inline-block;
+}
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
 @keyframes slideIn {
     from {
         opacity: 0;

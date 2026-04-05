@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Hillary Bale - Full Stack Engineer specializing in JavaScript, React, and Node.js. View my portfolio, projects, and technical skills.">
+        content="Dhruv Jain - Full Stack Engineer specializing in JavaScript, React, and Node.js. View my portfolio, projects, and technical skills.">
     <meta name="keywords" content="Full Stack Developer, JavaScript, React, Node.js, Web Development, Portfolio">
     <meta name="author" content="Dhruv Jain">
     <title>Dhruv Jain - Full Stack Engineer</title>
@@ -15,17 +15,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
 
-    <link rel="stylesheet" href="styles.css">
+  <script type="module" crossorigin src="/assets/index-DaboWyoy.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DFCjibAu.css">
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <div class="logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button id="theme-toggle" class="btn btn-outline theme-toggle-btn" aria-label="Toggle Dark Mode">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="moon-icon" style="display: none;">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <div class="logo" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="2" />
                     <path d="M8 12L12 8L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 </svg>
@@ -33,9 +52,9 @@
             <h1 class="brand">DJ</h1>
         </div>
 
-        <nav class="nav-menu">
-            <a href="#home" class="nav-link active">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <nav class="nav-menu" aria-label="Main Navigation">
+            <a href="#home" class="nav-link active" aria-current="page">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                     <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
@@ -43,14 +62,14 @@
             </a>
 
             <a href="#projects" class="nav-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
                 </svg>
                 <span>Projects</span>
             </a>
 
             <a href="#skills" class="nav-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 2L2 7l10 5 10-5-10-5z" />
                     <path d="M2 17l10 5 10-5" />
                     <path d="M2 12l10 5 10-5" />
@@ -59,7 +78,7 @@
             </a>
 
             <a href="#contact" class="nav-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                     <polyline points="22,6 12,13 2,6" />
                 </svg>
@@ -69,7 +88,7 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <!-- Home/Profile Section -->
         <section id="home" class="page">
             <h2 class="page-title">Profile Overview</h2>
@@ -259,7 +278,6 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
 </body>
 
 </html>
