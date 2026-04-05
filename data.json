@@ -1,8 +1,8 @@
 {
   "profile": {
     "name": "Dhruv Jain",
-    "title": "Mobile App Developer | Flutter Developer",
-    "bio": "Aspiring Flutter Developer passionate about creating user-friendly mobile applications. Eager to enhance skills in app development, UI/UX design, and app distribution. Committed to continuous learning and growth in mobile technology. Dedicated to delivering high-quality applications with exceptional user experiences.",
+    "title": "Mobile App Developer | Flutter Specialist",
+    "bio": "Results-driven Mobile Engineer specializing in high-performance, cross-platform applications using Flutter and Dart. Proven track record of architecting scalable UI/UX, integrating complex REST APIs, and successfully shipping production-grade builds to both the Apple App Store and Google Play. Passionate about delivering fluid, intuitive, and crash-free mobile experiences.",
     "image": "assets/dhruvjain.jpg",
     "stats": {
       "experience": "1+",
@@ -24,21 +24,21 @@
       "company": "Digilateral Solutions",
       "role": "Mobile App Developer Intern",
       "period": "JANUARY 2024 - JULY 2024",
-      "description": "Developed mobile apps using Flutter with multiple API integration. Collaborated with the design team to make user-friendly apps. Deployed and distributed apps on AppStore and PlayStore."
+      "description": "Engineered cross-platform mobile applications using Flutter and Dart, integrating complex RESTful APIs to deliver seamless data synchronization. Collaborated closely with UI/UX designers to translate requirements into interactive prototypes. Managed end-to-end deployment cycles, successfully shipping production builds to the Apple App Store and Google Play."
     },
     {
       "id": 2,
       "company": "Vidyavardhini College of Engineering & Technology",
       "role": "Computer Engineering Student",
       "period": "2024 - PRESENT",
-      "description": "Pursuing Bachelor's degree in Computer Engineering. Focusing on mobile app development, software engineering principles, and modern development practices."
+      "description": "Advancing expertise in software engineering principles, algorithms, and modern system architecture. Actively applying rigorous academic theory to specialized mobile application development and full-stack performance optimization."
     },
     {
       "id": 3,
       "company": "Government Polytechnic Mumbai",
       "role": "Computer Engineering Diploma",
       "period": "2021 - 2024",
-      "description": "Completed Diploma in Computer Engineering with 95.58% score. Specialized in mobile application development and software programming fundamentals."
+      "description": "Graduated with High Honors (95.58% aggregate). Specialized in core software programming, algorithmic fundamentals, and acquired the advanced technical groundwork for cross-platform scalable mobile development."
     }
   ],
   "endorsements": [
@@ -182,7 +182,7 @@
     {
       "id": 1,
       "title": "Neuro - iPad VA",
-      "description": "An app that showcases data about medicines in an interactive way to doctors. Developed using Flutter for iPad device with data persistence, Sentry.io error tracking, and Google Analytics integration.",
+      "description": "Architected an interactive medical data visualization suite specifically optimized for iPad environments. Integrated robust local data persistence, real-time Sentry.io crash reporting, and Google Analytics to track user engagement.",
       "technologies": [
         "Flutter",
         "Dart",
@@ -199,7 +199,7 @@
     {
       "id": 2,
       "title": "Quiz App",
-      "description": "Interactive Quiz App designed to boost doctor engagement with pharmaceutical brands. Developed for iPad with data persistence and analytics tracking. Successfully distributed on AppStore Connect.",
+      "description": "Engineered an engagement gamification platform for pharmaceutical representatives. Implemented complex state management, data persistence, and analytics. Successfully navigated Apple's stringent review process via AppStore Connect.",
       "technologies": [
         "Flutter",
         "Dart",
@@ -215,7 +215,7 @@
     {
       "id": 3,
       "title": "dSangeet - Android Music Player",
-      "description": "A native Android music player app that fetches music from the user's device after permission is granted. Built using Java and XML in Android Studio with intuitive UI and smooth playback.",
+      "description": "Developed a fully-native Android media companion leveraging OS-level background audio services. Implemented advanced permissions handling, local file-system querying, and a custom interactive UI built entirely with Java and raw XML.",
       "technologies": [
         "Java",
         "XML",
