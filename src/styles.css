@@ -1087,7 +1087,7 @@ html.light-theme #bg-canvas {
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     display: grid;
-    align-items: center;
+    align-items: start;
     grid-template-columns: 200px 1fr;
     gap: var(--spacing-xl);
     color: var(--color-text);
@@ -1102,11 +1102,21 @@ html.light-theme #bg-canvas {
 .profile-image-container {
     width: 180px;
     height: 240px;
+    align-self: start;
+    justify-self: start;
     border: var(--border-width) solid var(--color-border);
     background-size: cover;
-    background-position: center;
+    background-position: left top;
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     /* removed luxurious-float animation based on user feedback */
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    display: block;
 }
 
 @keyframes luxurious-float {
