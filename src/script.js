@@ -888,10 +888,12 @@ function setupDownloadCV() {
     if (downloadBtn) {
         downloadBtn.addEventListener('click', () => {
             const cvUrl = portfolioData.profile.cv;
+            const profileName = portfolioData.profile.name || 'Dhruv_Jain';
+            const downloadFileName = `${profileName.trim().replace(/\s+/g, '_')}_CV.pdf`;
             // Create a temporary anchor element to trigger download
             const link = document.createElement('a');
             link.href = cvUrl;
-            link.download = 'Hillary_Bale_CV.pdf';
+            link.download = downloadFileName;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
