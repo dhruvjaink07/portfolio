@@ -132,7 +132,11 @@
     <main class="main-content" id="main-content">
         <!-- Home/Profile Section -->
         <section id="home" class="page">
-            <h2 class="page-title">Profile Overview</h2>
+            <h2 class="page-title" style="margin-bottom: 24px;">Profile Overview</h2>
+            
+            <div class="section-card" style="margin-bottom: 32px; border-left: 4px solid var(--theme-primary);">
+                <p id="profile-bio" style="font-size: 1.1rem; line-height: 1.7; color: var(--color-text, #F8FAFC); margin: 0;"></p>
+            </div>
 
             <div class="content-grid">
                 <div class="left-column">
@@ -144,9 +148,7 @@
                             <h3 class="profile-name" id="profile-name"></h3>
                             <p class="profile-title" id="profile-title"></p>
 
-                            <div class="social-links" id="social-links"></div>
-
-                            <p class="profile-bio" id="profile-bio"></p>
+                            <div class="social-links" id="social-links" style="margin-bottom: 24px;"></div>
 
                             <div class="profile-actions">
                                 <button class="btn btn-primary" id="download-cv">
@@ -158,7 +160,6 @@
                                     </svg>
                                     Resume
                                 </button>
-                                <button class="btn btn-secondary">GitHub</button>
                             </div>
                         </div>
                     </div>

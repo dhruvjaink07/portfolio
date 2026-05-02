@@ -2,7 +2,7 @@
   "profile": {
     "name": "Dhruv Jain",
     "title": "Mobile App Developer | Flutter Specialist",
-    "bio": "Results-driven Mobile Engineer specializing in high-performance, cross-platform applications using Flutter and Dart. Proven track record of architecting scalable UI/UX, integrating complex REST APIs, and successfully shipping production-grade builds to both the Apple App Store and Google Play. Passionate about delivering fluid, intuitive, and crash-free mobile experiences.",
+    "bio": "Mobile engineer with real production experience not just side projects. At 20, owned cloud infrastructure and led full-stack development for a live, funded startup while still in college. Have shipped apps used by Sun Pharma’s nationwide Medical Representative force, built AI-powered productivity tools, and am currently exploring systems engineering with Go. I take ownership of hard problems and see them through to production.",
     "image": "assets/dhruvjain.jpg",
     "stats": {
       "experience": "1+",
@@ -20,11 +20,18 @@
   },
   "workExperience": [
     {
+      "id": 2,
+      "company": "Phodeco Ind Pvt Ltd",
+      "role": "Founding Engineer",
+      "period": "JULY 2025 - PRESENT",
+      "description": "• Cloud & infrastructure architected and owned the full GCP + Firebase backend: Firestore, Cloud Functions, Storage, and deployment pipelines for India’s first celebration-services platform.\n• Product surface co-developed 4 live Flutter apps (2 Android, 2 iOS), a web-based admin panel (booking management, vendor KYC, KPI dashboards), and the phodeco.com marketing website.\n• End-to-end ownership store submissions, release management, production monitoring, and ongoing support across all platforms."
+    },
+    {
       "id": 1,
       "company": "Digilateral Solutions",
       "role": "Mobile App Developer Intern",
       "period": "JANUARY 2024 - JULY 2024",
-      "description": "Engineered cross-platform mobile applications using Flutter and Dart, integrating complex RESTful APIs to deliver seamless data synchronization. Collaborated closely with UI/UX designers to translate requirements into interactive prototypes. Managed end-to-end deployment cycles, successfully shipping production builds to the Apple App Store and Google Play."
+      "description": "• Developed an iPad-focused Flutter application for Sun Pharma Medical Representatives supporting legacy devices down to iPad 1st Gen (iOS 12.5.7) deployed pan-India across regional zones for nationwide field marketing and brand engagement.\n• Shipped 5 production apps to the Apple App Store across multiple client engagements, with multi-provider REST API integration contributing directly to client-facing product releases.\n• Managed end-to-end app distribution through App Store Connect and Google Play Console across all releases."
     }
   ],
   "education": [
@@ -32,7 +39,7 @@
       "id": 1,
       "institution": "Vidyavardhini College of Engineering & Technology",
       "degree": "Bachelor of Engineering in Computer Engineering",
-      "period": "2024 - PRESENT",
+      "period": "2024 - 2027",
       "description": "Advancing expertise in software engineering principles, algorithms, and modern system architecture. Actively applying rigorous academic theory to specialized mobile application development and full-stack performance optimization."
     },
     {
@@ -72,7 +79,10 @@
     "Dart",
     "Java",
     "XCode",
-    "SQL"
+    "SQL",
+    "Go",
+    "Docker",
+    "GCP"
   ],
   "skills": {
     "frontend": [
@@ -81,28 +91,35 @@
         "icon": "📱",
         "level": "EXPERT",
         "description": "Primary framework for building cross-platform mobile applications with beautiful user interfaces.",
-        "projectCount": 3
+        "projectCount": 4
       },
       {
         "name": "Dart",
         "icon": "🎯",
         "level": "EXPERT",
         "description": "Programming language for Flutter development, enabling fast and efficient mobile app creation.",
-        "projectCount": 3
+        "projectCount": 2
       },
       {
         "name": "Java",
         "icon": "☕",
         "level": "ADVANCED",
         "description": "Object-oriented language used for Android development and backend services.",
-        "projectCount": 2
+        "projectCount": 1
       },
       {
         "name": "XML",
         "icon": "📄",
         "level": "INTERMEDIATE",
         "description": "Markup language for Android UI layouts and configuration files.",
-        "projectCount": 2
+        "projectCount": 1
+      },
+      {
+        "name": "JavaScript",
+        "icon": "🟨",
+        "level": "ADVANCED",
+        "description": "Language for web development.",
+        "projectCount": 1
       }
     ],
     "backend": [
@@ -111,28 +128,42 @@
         "icon": "🟢",
         "level": "INTERMEDIATE",
         "description": "JavaScript runtime for building scalable server-side applications and APIs.",
-        "projectCount": 2
+        "projectCount": 0
       },
       {
         "name": "SQL",
         "icon": "🗄️",
         "level": "ADVANCED",
         "description": "Database query language for managing and manipulating relational databases.",
-        "projectCount": 3
+        "projectCount": 0
       },
       {
         "name": "Python",
         "icon": "🐍",
         "level": "INTERMEDIATE",
         "description": "Versatile programming language for scripting, automation, and backend development.",
-        "projectCount": 2
+        "projectCount": 0
       },
       {
         "name": "REST APIs",
         "icon": "🔌",
         "level": "ADVANCED",
         "description": "Integration with RESTful services for data fetching and backend communication.",
-        "projectCount": 3
+        "projectCount": 1
+      },
+      {
+        "name": "Go",
+        "icon": "🐹",
+        "level": "INTERMEDIATE",
+        "description": "Systems programming language used for scalable backends.",
+        "projectCount": 2
+      },
+      {
+        "name": "Flask",
+        "icon": "🌶️",
+        "level": "BEGINNER",
+        "description": "Micro web framework for Python.",
+        "projectCount": 0
       }
     ],
     "tools": [
@@ -148,39 +179,113 @@
         "icon": "🤖",
         "level": "EXPERT",
         "description": "Official IDE for Android development with powerful debugging and testing tools.",
-        "projectCount": 3
+        "projectCount": 1
       },
       {
         "name": "Git / GitHub",
         "icon": "🔀",
         "level": "ADVANCED",
         "description": "Version control system for code management and collaboration.",
-        "projectCount": 3
+        "projectCount": 0
       },
       {
         "name": "Sentry.io",
         "icon": "🐛",
         "level": "INTERMEDIATE",
         "description": "Error tracking and monitoring platform for app stability and performance.",
-        "projectCount": 1
+        "projectCount": 2
       },
       {
         "name": "Google Analytics",
         "icon": "📊",
         "level": "INTERMEDIATE",
         "description": "Analytics platform for tracking user behavior and app performance metrics.",
-        "projectCount": 1
+        "projectCount": 4
       },
       {
         "name": "Firebase",
         "icon": "🔥",
         "level": "INTERMEDIATE",
         "description": "Google's mobile platform for app development with backend services.",
-        "projectCount": 2
+        "projectCount": 1
+      },
+      {
+        "name": "Docker",
+        "icon": "🐳",
+        "level": "INTERMEDIATE",
+        "description": "Containerization platform for application deployment.",
+        "projectCount": 1
+      },
+      {
+        "name": "GCP",
+        "icon": "☁️",
+        "level": "INTERMEDIATE",
+        "description": "Google Cloud Platform for hosting and backend services.",
+        "projectCount": 0
+      },
+      {
+        "name": "Prometheus",
+        "icon": "📈",
+        "level": "BEGINNER",
+        "description": "Monitoring and alerting toolkit.",
+        "projectCount": 1
+      },
+      {
+        "name": "Appwrite",
+        "icon": "🚀",
+        "level": "INTERMEDIATE",
+        "description": "Open-source backend server.",
+        "projectCount": 0
       }
     ]
   },
   "projects": [
+    {
+      "id": 6,
+      "title": "Sompraz",
+      "description": "First professional client delivery iPad medical app with data persistence, crash monitoring via Sentry.io, distributed through App Store Connect.",
+      "technologies": [
+        "Flutter",
+        "Sentry.io",
+        "Google Analytics"
+      ],
+      "category": "mobile",
+      "color": "#FCE7F3",
+      "icon": "⚕️",
+      "demoUrl": "",
+      "codeUrl": ""
+    },
+    {
+      "id": 5,
+      "title": "BoardBuddy",
+      "description": "AI-powered Kanban platform that converts natural-language prompts into structured task boards via Gemini LLM, with Deerflow a built-in analytics engine for productivity insights; awarded copyright recognition by VCET.",
+      "technologies": [
+        "Flutter",
+        "Gemini LLM",
+        "Firebase"
+      ],
+      "category": "mobile",
+      "color": "#FEF08A",
+      "icon": "📋",
+      "demoUrl": "",
+      "codeUrl": "https://github.com/dhruvjaink07"
+    },
+    {
+      "id": 4,
+      "title": "FailSafe",
+      "description": "Resilience testing platform that injects controlled faults across microservices, web frontends, and Android APKs using an adaptive binary-search algorithm to identify breaking thresholds and compute metrics like blast radius, cascade depth, and recovery time.",
+      "technologies": [
+        "Go",
+        "Docker",
+        "Prometheus",
+        "REST"
+      ],
+      "category": "backend",
+      "color": "#DBEAFE",
+      "icon": "🛡️",
+      "demoUrl": "",
+      "codeUrl": "https://github.com/dhruvjaink07"
+    },
     {
       "id": 1,
       "title": "Neuro - iPad VA",
@@ -234,5 +339,25 @@
     "email": "dhruvkishorjain2508@gmail.com",
     "location": "Mumbai, Maharashtra",
     "availability": "Open to opportunities"
-  }
+  },
+  "achievements": [
+    {
+      "id": 1,
+      "title": "AI/ML Associate",
+      "organization": "Google Developers Group on Campus, VCET",
+      "period": "SEPTEMBER 2025 - PRESENT"
+    },
+    {
+      "id": 2,
+      "title": "Junior Dev Associate",
+      "organization": "Microsoft Learn Students Club, VCET",
+      "period": "AUGUST 2025 - PRESENT"
+    },
+    {
+      "id": 3,
+      "title": "Legend Tier",
+      "organization": "Google Arcade Facilitator Program",
+      "period": "2025"
+    }
+  ]
 }

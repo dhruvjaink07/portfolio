@@ -21,8 +21,8 @@
     --color-text-muted: #64748B;
 
     /* Theme overrides */
-    --theme-primary: var(--color-sunset); /* Used for sun/accents */
-    --theme-primary-dark: #EA580C;
+    --theme-primary: #02569B; /* Flutter Blue */
+    --theme-primary-dark: #01437A;
     --theme-sidebar: var(--color-ice-blue);
 
     /* Typography - Fluid via clamp() */
@@ -41,13 +41,13 @@
     --spacing-xs: 0.5rem;
     --spacing-sm: 0.75rem;
     --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
+    --spacing-lg: 1.75rem;
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 4rem;
 
     /* Border */
-    --border-width: 3px;
-    --border-radius: 0;
+    --border-width: 1px;
+    --border-radius: 16px;
 
     /* Transitions */
     --transition-fast: 150ms ease;
@@ -55,9 +55,9 @@
     --transition-slow: 350ms ease;
 
     /* Shadows */
-    --shadow-sm: 4px 4px 0 var(--color-text);
-    --shadow-md: 6px 6px 0 var(--color-text);
-    --shadow-lg: 8px 8px 0 var(--color-text);
+    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
 [data-theme="dark"] {
@@ -73,9 +73,9 @@
     --theme-primary-dark: #0EA5E9;
     --theme-sidebar: #0B0F19; /* Deep night */
     
-    --shadow-sm: 4px 4px 0 #000;
-    --shadow-md: 6px 6px 0 #000;
-    --shadow-lg: 8px 8px 0 #000;
+    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.4);
     --blend-mode: screen; /* Used for gh chart inversion if desired */
 }
 
@@ -91,9 +91,9 @@
         --theme-primary: #38BDF8;
         --theme-primary-dark: #0EA5E9;
         --theme-sidebar: #0B0F19;
-        --shadow-sm: 4px 4px 0 #000;
-        --shadow-md: 6px 6px 0 #000;
-        --shadow-lg: 8px 8px 0 #000;
+        --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.2);
+        --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.4);
     }
 }
 
@@ -111,6 +111,11 @@ html {
     scroll-padding-top: 20px;
 }
 
+/* Global soft UI border radius */
+.section-card, .profile-card, .project-card, .experience-item, .stat-box, .endorsement-card, .skill-badge, .btn, .search-bar, .icon-btn, .back-btn {
+    border-radius: var(--border-radius);
+}
+
 /* Custom Text Selection */
 ::selection {
     background-color: var(--color-primary);
@@ -119,21 +124,20 @@ html {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--color-bg-secondary);
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-bg-tertiary);
-    border-radius: 5px;
-    border: 2px solid var(--color-bg-secondary);
+    background: color-mix(in srgb, var(--theme-primary) 50%, transparent);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
+    background: var(--theme-primary);
 }
 
 body {
@@ -178,9 +182,10 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-weight: 700;
     line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 a {
@@ -718,8 +723,9 @@ html.light-theme #bg-canvas {
 
 .brand {
     font-size: var(--text-lg);
-    font-family: var(--font-mono);
-    font-weight: 700;
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
 .nav-menu {
@@ -855,6 +861,79 @@ html.light-theme #bg-canvas {
     max-width: 100%;
 }
 
+@media (max-width: 768px) {
+    .sidebar {
+        top: auto;
+        bottom: 0;
+        width: 100vw;
+        height: 72px;
+        flex-direction: row;
+        padding: 0;
+        z-index: 1000;
+        border-right: none;
+        border-top: 1px solid var(--color-border);
+        background-color: color-mix(in srgb, var(--theme-sidebar) 85%, transparent);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+    
+    .sidebar-header, .live-status, .sidebar-footer {
+        display: none !important;
+    }
+    
+    .nav-menu {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .nav-link {
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 12px;
+        font-size: 0.65rem;
+        flex: 1;
+        text-align: center;
+        border-radius: 0;
+        justify-content: center;
+    }
+    
+    .nav-link svg {
+        width: 22px;
+        height: 22px;
+        margin: 0;
+    }
+    
+    .nav-link::before {
+        display: none;
+    }
+    
+    .nav-link:hover {
+        transform: none;
+        background: transparent;
+        color: var(--theme-primary);
+    }
+    
+    .nav-link.active {
+        background: transparent;
+        color: var(--theme-primary);
+    }
+    
+    .nav-link.active svg {
+        transform: scale(1.1);
+        color: var(--theme-primary);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: var(--spacing-md);
+        padding-bottom: 90px;
+    }
+}
+
 /* Container for content - prevents too wide on ultra-wide screens */
 .page {
     max-width: 1800px;
@@ -934,6 +1013,7 @@ html.light-theme #bg-canvas {
 .profile-avatar {
     width: 48px;
     height: 48px;
+    border-radius: 50%;
     border: var(--border-width) solid var(--color-border);
     background-size: cover;
     background-position: center;
@@ -951,7 +1031,9 @@ html.light-theme #bg-canvas {
    =================================== */
 .page-title {
     font-size: var(--text-3xl);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.03em;
     margin-bottom: var(--spacing-sm);
     color: var(--color-text);
 }
@@ -964,7 +1046,9 @@ html.light-theme #bg-canvas {
 
 .section-title {
     font-size: var(--text-xl);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.02em;
     margin-bottom: var(--spacing-lg);
     color: var(--color-text);
 }
@@ -1003,8 +1087,8 @@ html.light-theme #bg-canvas {
 }
 
 .btn:hover {
-    transform: translate(-3px, -3px) scale(1.02);
-    box-shadow: 6px 6px 0 var(--color-text), 0 10px 20px rgba(0,0,0,0.1);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 .btn:hover::after {
@@ -1064,6 +1148,19 @@ html.light-theme #bg-canvas {
     }
 }
 
+/* Scroll Animations triggered by JS */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* ===================================
    HOME PAGE - PROFILE
    =================================== */
@@ -1081,9 +1178,9 @@ html.light-theme #bg-canvas {
 }
 
 .profile-card {
-    background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background-color: color-mix(in srgb, var(--color-surface) 75%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     display: grid;
@@ -1100,15 +1197,15 @@ html.light-theme #bg-canvas {
 }
 
 .profile-image-container {
-    width: 180px;
-    height: 240px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
     align-self: start;
     justify-self: start;
     border: var(--border-width) solid var(--color-border);
     background-size: cover;
     background-position: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    /* removed luxurious-float animation based on user feedback */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 @keyframes luxurious-float {
@@ -1129,7 +1226,9 @@ html.light-theme #bg-canvas {
 
 .profile-name {
     font-size: 2rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.03em;
 }
 
 .profile-title {
@@ -1172,7 +1271,9 @@ html.light-theme #bg-canvas {
 }
 
 .stat-box {
-    background-color: var(--color-surface);
+    background-color: color-mix(in srgb, var(--color-surface) 75%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-md);
     text-align: center;
@@ -1205,7 +1306,9 @@ html.light-theme #bg-canvas {
 }
 
 .section-card {
-    background-color: var(--color-surface);
+    background-color: color-mix(in srgb, var(--color-surface) 75%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-xl);
     overflow: hidden;
@@ -1227,7 +1330,9 @@ html.light-theme #bg-canvas {
 
 .experience-item {
     padding: var(--spacing-lg);
-    background-color: var(--color-surface-hover);
+    background-color: color-mix(in srgb, var(--color-surface-hover) 75%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: var(--border-width) solid var(--color-border);
     transition: all var(--transition-base);
 }
@@ -1258,7 +1363,8 @@ html.light-theme #bg-canvas {
 
 .experience-details h4 {
     font-size: 1.1rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-weight: 700;
     margin-bottom: var(--spacing-xs);
 }
 
@@ -1288,7 +1394,9 @@ html.light-theme #bg-canvas {
 }
 
 .endorsement-card {
-    background-color: var(--color-surface);
+    background-color: color-mix(in srgb, var(--color-surface) 75%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: var(--border-width) solid var(--color-border);
     padding: var(--spacing-lg);
     transition: all var(--transition-base);
@@ -1302,7 +1410,7 @@ html.light-theme #bg-canvas {
 }
 
 .endorsement-card.featured {
-    background-color: var(--color-purple);
+    background-color: color-mix(in srgb, var(--color-purple, #A855F7) 75%, transparent);
 }
 
 .endorsement-header {
@@ -1314,7 +1422,8 @@ html.light-theme #bg-canvas {
 
 .endorser-info h4 {
     font-size: 1rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-weight: 700;
     margin-bottom: var(--spacing-xs);
 }
 
@@ -1394,9 +1503,11 @@ html.light-theme #bg-canvas {
 
 .skill-badge {
     padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--color-surface);
+    background-color: color-mix(in srgb, var(--color-surface) 75%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: var(--border-width) solid var(--color-border);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-weight: 600;
     font-size: 0.9rem;
     transition: all var(--transition-base);
@@ -1478,7 +1589,9 @@ html.light-theme #bg-canvas {
 }
 
 .project-card {
-    background-color: var(--color-surface);
+    background-color: color-mix(in srgb, var(--color-surface) 75%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: var(--border-width) solid var(--color-border);
     overflow: hidden;
     position: relative;
@@ -1549,7 +1662,9 @@ html.light-theme #bg-canvas {
 
 .project-title {
     font-size: 1.25rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.01em;
     margin-bottom: var(--spacing-sm);
 }
 
