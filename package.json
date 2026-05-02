@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@chenglou/pretext": "^0.0.4",
+    "@rive-app/canvas": "^2.37.5",
     "vanilla-tilt": "^1.8.1"
   }
 }

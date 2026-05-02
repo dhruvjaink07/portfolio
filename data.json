@@ -1,8 +1,8 @@
 {
   "profile": {
     "name": "Dhruv Jain",
-    "title": "Mobile App Developer | Flutter Specialist",
-    "bio": "Mobile engineer with real production experience not just side projects. At 20, owned cloud infrastructure and led full-stack development for a live, funded startup while still in college. Have shipped apps used by Sun Pharma’s nationwide Medical Representative force, built AI-powered productivity tools, and am currently exploring systems engineering with Go. I take ownership of hard problems and see them through to production.",
+    "title": "Software Engineer | Mobile & Cloud Architecture",
+    "bio": "Software Engineer specializing in cross-platform mobile development and scalable cloud infrastructure. I have a proven track record of architecting end-to-end systems for funded startups and shipping enterprise-grade applications used by nationwide workforces (e.g., Sun Pharma). From database design in GCP to App Store deployment, I take complete ownership of complex technical challenges and consistently deliver production-ready software.",
     "image": "assets/dhruvjain.jpg",
     "stats": {
       "experience": "1+",
@@ -24,14 +24,14 @@
       "company": "Phodeco Ind Pvt Ltd",
       "role": "Founding Engineer",
       "period": "JULY 2025 - PRESENT",
-      "description": "• Cloud & infrastructure architected and owned the full GCP + Firebase backend: Firestore, Cloud Functions, Storage, and deployment pipelines for India’s first celebration-services platform.\n• Product surface co-developed 4 live Flutter apps (2 Android, 2 iOS), a web-based admin panel (booking management, vendor KYC, KPI dashboards), and the phodeco.com marketing website.\n• End-to-end ownership store submissions, release management, production monitoring, and ongoing support across all platforms."
+      "description": "• Cloud Architecture: Designed and owned the complete GCP & Firebase backend (Firestore, Cloud Functions, Storage) for India’s first celebration-services platform.\n• Product Engineering: Spearheaded the end-to-end development of 4 live production Flutter apps (iOS & Android) and a web-based administrative dashboard.\n• DevOps & Delivery: Managed the entire product lifecycle, including CI/CD pipelines, App Store / Play Store submissions, and active production monitoring."
     },
     {
       "id": 1,
       "company": "Digilateral Solutions",
       "role": "Mobile App Developer Intern",
       "period": "JANUARY 2024 - JULY 2024",
-      "description": "• Developed an iPad-focused Flutter application for Sun Pharma Medical Representatives supporting legacy devices down to iPad 1st Gen (iOS 12.5.7) deployed pan-India across regional zones for nationwide field marketing and brand engagement.\n• Shipped 5 production apps to the Apple App Store across multiple client engagements, with multi-provider REST API integration contributing directly to client-facing product releases.\n• Managed end-to-end app distribution through App Store Connect and Google Play Console across all releases."
+      "description": "• Enterprise Development: Engineered an iPad-focused application deployed pan-India for Sun Pharma’s Medical Representatives, ensuring flawless compatibility with legacy hardware (iOS 12.5.7).\n• Client Delivery: Successfully shipped 5 production applications across multiple client engagements, implementing complex REST API integrations for client-facing releases.\n• Release Management: Handled end-to-end app distribution and compliance through Apple App Store Connect and Google Play Console."
     }
   ],
   "education": [
