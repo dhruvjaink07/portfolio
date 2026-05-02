@@ -32,8 +32,8 @@
         rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
 
-  <script type="module" crossorigin src="/assets/index-Rmq84Z6q.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BrMU2Qer.css">
+  <script type="module" crossorigin src="/assets/index-Bqm9TF7d.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B7c59okd.css">
 </head>
 
 <body>
@@ -60,9 +60,11 @@
         </svg>
     </button>
     
-    <!-- Realistic Majestic Mountain Background -->
-    <div class="mountain-bg">
-        <div class="mountain-overlay"></div>
+    <div class="mountain-bg time-day">
+        <div class="sun-moon"></div>
+        <div class="mountain mountain-1"></div>
+        <div class="mountain mountain-2"></div>
+        <div class="mountain mountain-3"></div>
     </div>
 
     <!-- Sidebar Navigation -->
@@ -79,34 +81,22 @@
 
         <nav class="nav-menu" aria-label="Main Navigation">
             <a href="#home" class="nav-link active" aria-current="page">
-                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                </svg>
+                <canvas id="rive-nav-home" width="24" height="24" style="width: 24px; height: 24px; margin-bottom: 4px; pointer-events: none;"></canvas>
                 <span>Home</span>
             </a>
 
             <a href="#projects" class="nav-link">
-                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-                </svg>
+                <canvas id="rive-nav-projects" width="24" height="24" style="width: 24px; height: 24px; margin-bottom: 4px; pointer-events: none;"></canvas>
                 <span>Projects</span>
             </a>
 
             <a href="#skills" class="nav-link">
-                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                    <path d="M2 17l10 5 10-5" />
-                    <path d="M2 12l10 5 10-5" />
-                </svg>
+                <canvas id="rive-nav-skills" width="24" height="24" style="width: 24px; height: 24px; margin-bottom: 4px; pointer-events: none;"></canvas>
                 <span>Skills</span>
             </a>
 
             <a href="#contact" class="nav-link">
-                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                    <polyline points="22,6 12,13 2,6" />
-                </svg>
+                <canvas id="rive-nav-contact" width="24" height="24" style="width: 24px; height: 24px; margin-bottom: 4px; pointer-events: none;"></canvas>
                 <span>Contact</span>
             </a>
         </nav>
@@ -133,7 +123,11 @@
     <main class="main-content" id="main-content">
         <!-- Home/Profile Section -->
         <section id="home" class="page">
-            <h2 class="page-title">Profile Overview</h2>
+            <h2 class="page-title" style="margin-bottom: 24px;">Profile Overview</h2>
+            
+            <div class="section-card" style="margin-bottom: 32px; border-left: 4px solid var(--theme-primary);">
+                <p id="profile-bio" style="font-size: 1.1rem; line-height: 1.7; color: var(--color-text, #F8FAFC); margin: 0;"></p>
+            </div>
 
             <div class="content-grid">
                 <div class="left-column">
@@ -145,9 +139,7 @@
                             <h3 class="profile-name" id="profile-name"></h3>
                             <p class="profile-title" id="profile-title"></p>
 
-                            <div class="social-links" id="social-links"></div>
-
-                            <p class="profile-bio" id="profile-bio"></p>
+                            <div class="social-links" id="social-links" style="margin-bottom: 24px;"></div>
 
                             <div class="profile-actions">
                                 <button class="btn btn-primary" id="download-cv">
@@ -159,7 +151,6 @@
                                     </svg>
                                     Resume
                                 </button>
-                                <button class="btn btn-secondary">GitHub</button>
                             </div>
                         </div>
                     </div>
