@@ -79,6 +79,10 @@
     --blend-mode: screen; /* Used for gh chart inversion if desired */
 }
 
+[data-theme="dark"] body {
+    background-color: rgba(15, 23, 42, 0.6);
+}
+
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
         /* Kasol/Nepal/Japan Twilight */
@@ -94,6 +98,10 @@
         --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.2);
         --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.3);
         --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    :root:not([data-theme="light"]) body {
+        background-color: rgba(15, 23, 42, 0.6);
     }
 }
 
