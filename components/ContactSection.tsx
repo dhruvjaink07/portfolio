@@ -14,7 +14,7 @@ const FIELDS = [
 
 const labelClass = 'text-xs tracking-[0.2em] text-muted uppercase';
 const inputClass =
-  'mt-2 w-full border-0 border-b border-line-strong bg-transparent px-0 py-3 text-sm transition-colors duration-500 ease-spring placeholder:text-muted/60 focus:border-accent focus:outline-none';
+  'mt-2 w-full border-0 border-b border-line-strong bg-transparent px-0 py-3 text-sm transition-colors duration-500 ease-spring placeholder:text-muted/60 focus:border-ink focus:outline-none';
 
 export default function ContactSection() {
   const [status, setStatus] = useState<Status>({ state: 'idle' });

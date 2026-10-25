@@ -37,7 +37,7 @@ export default function CopyEmailTile({ email, social, className = '' }: CopyEma
       <div className="mt-6 flex items-center justify-between gap-4">
         <a
           href={`mailto:${email}`}
-          className="min-w-0 font-display text-lg leading-snug font-semibold break-all transition-colors duration-300 ease-spring hover:text-accent"
+          className="min-w-0 font-display text-lg leading-snug font-semibold break-all transition-colors duration-300 ease-spring hover:text-muted"
         >
           {email}
         </a>

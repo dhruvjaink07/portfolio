@@ -21,7 +21,7 @@ function LevelMeter({ level }: { level: SkillLevel }) {
   return (
     <span role="img" aria-label={`${level.toLowerCase()}, ${filled} of 4`} className="flex shrink-0 gap-1">
       {LEVELS.map((l, i) => (
-        <span key={l} className={`h-1.5 w-4 rounded-full ${i < filled ? 'bg-accent' : 'bg-line-strong'}`} />
+        <span key={l} className={`h-1.5 w-4 rounded-full ${i < filled ? 'bg-ink' : 'bg-line-strong'}`} />
       ))}
     </span>
   );

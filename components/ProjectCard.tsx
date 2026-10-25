@@ -22,7 +22,7 @@ interface ProjectCardProps {
 
 // Links sit above the card-wide toggle overlay, so they stay independently clickable.
 const linkClass =
-  'relative z-10 underline-offset-4 transition-colors duration-300 ease-smooth hover:text-accent hover:underline';
+  'relative z-10 underline-offset-4 transition-colors duration-300 ease-smooth hover:underline';
 
 function Links({ title, liveUrl, codeUrl }: Pick<Project, 'title' | 'liveUrl' | 'codeUrl'>) {
   if (!liveUrl && !codeUrl) return null;
@@ -58,7 +58,7 @@ function CategoryLabel({ category, ongoing }: Pick<Project, 'category' | 'ongoin
     <span className="flex items-center gap-2">
       {category}
       {ongoing && (
-        <span className="rounded-full bg-accent px-2 py-0.5 text-[0.6rem] tracking-wider text-canvas">Ongoing</span>
+        <span className="rounded-full bg-ink px-2 py-0.5 text-[0.6rem] tracking-wider text-canvas">Ongoing</span>
       )}
     </span>
   );
@@ -102,7 +102,7 @@ export default function ProjectCard({ project, size, onToggle }: ProjectCardProp
               <ul className="max-w-prose space-y-2.5 text-sm leading-relaxed text-muted">
                 {highlights.map(h => (
                   <li key={h} className="flex gap-3">
-                    <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
+                    <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-ink" />
                     <span>
                       <LabeledPoint text={h} />
                     </span>

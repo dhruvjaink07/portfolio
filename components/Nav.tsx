@@ -65,7 +65,7 @@ export default function Nav() {
           {indicator && (
             <li
               aria-hidden="true"
-              className={`absolute inset-y-0 left-0 rounded-full bg-accent ${
+              className={`absolute inset-y-0 left-0 rounded-full bg-ink ${
                 indicator.animate ? 'transition-[translate,width] duration-500 ease-spring' : ''
               }`}
               style={{ translate: `${indicator.left}px 0`, width: indicator.width }}

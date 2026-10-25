@@ -11,7 +11,7 @@ function Timeline({ entries }: { entries: TimelineEntry[] }) {
           <span
             aria-hidden="true"
             className={`absolute top-1 -left-[29.5px] size-2.5 rounded-full border ${
-              isCurrent(entry.period) ? 'border-accent bg-accent' : 'border-ink bg-surface'
+              isCurrent(entry.period) ? 'border-ink bg-ink' : 'border-ink bg-surface'
             }`}
           />
           <p className="text-xs tracking-[0.2em] text-muted uppercase tabular-nums">{entry.period}</p>

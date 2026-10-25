@@ -103,7 +103,7 @@ export default function HeroBento() {
                     <p className="flex items-center gap-2 font-display text-lg font-semibold">
                       {latest.title}
                       {isCurrent(latest.period) && (
-                        <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[0.6rem] font-normal tracking-wider text-canvas uppercase">
+                        <span className="rounded-full bg-ink px-2 py-0.5 font-mono text-[0.6rem] font-normal tracking-wider text-canvas uppercase">
                           Current
                         </span>
                       )}

@@ -4,14 +4,13 @@
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 :root {
-  /* Warm paper tones; the accent is International Klein Blue, kept to small highlights. */
+  /* Warm paper tones, monochrome: ink is the only emphasis colour. */
   --canvas: #f3efe7;
   --surface: #fbf9f5;
   --ink: #1a1814;
   --muted: #6b655b;
   --line: rgba(26, 24, 20, 0.07);
   --line-strong: #e3ddd1;
-  --accent: #002fa7;
   color-scheme: light;
 }
 
@@ -22,7 +21,6 @@
   --muted: #9a9488;
   --line: rgba(255, 248, 235, 0.07);
   --line-strong: rgba(255, 248, 235, 0.14);
-  --accent: #8fa6ff;
   color-scheme: dark;
 }
 
@@ -34,7 +32,6 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
-  --color-accent: var(--accent);
 
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
