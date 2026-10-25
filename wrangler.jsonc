@@ -1,0 +1,28 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dhruvjain-portfolio",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "dhruvjain-portfolio"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  // Must be the Resend account's email: without a verified domain, Resend only delivers there.
+  // RESEND_API_KEY is a secret: `npx wrangler secret put RESEND_API_KEY`.
+  "vars": {
+    "CONTACT_TO_EMAIL": "dhruvkishorjain2508@gmail.com"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,6 @@
+# Copy to .dev.vars for local development. Never commit .dev.vars.
+NEXTJS_ENV=development
+
+# Resend API key (https://resend.com/api-keys). In production set it with:
+#   npx wrangler secret put RESEND_API_KEY
+RESEND_API_KEY=

@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+
+/* Theme switches on <html data-theme>, set before first paint in layout.tsx. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  /* Warm paper tones; the accent is International Klein Blue, kept to small highlights. */
+  --canvas: #f3efe7;
+  --surface: #fbf9f5;
+  --ink: #1a1814;
+  --muted: #6b655b;
+  --line: rgba(26, 24, 20, 0.07);
+  --line-strong: #e3ddd1;
+  --accent: #002fa7;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --canvas: #12110f;
+  --surface: #1a1916;
+  --ink: #e6e1d6;
+  --muted: #9a9488;
+  --line: rgba(255, 248, 235, 0.07);
+  --line-strong: rgba(255, 248, 235, 0.14);
+  --accent: #8fa6ff;
+  color-scheme: dark;
+}
+
+/* Only tokens live here; all component styling is Tailwind utilities. */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* No overshoot: used by the project grid, where layout moves should glide, not bounce. */
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* The terminal stays dark in both themes. */
+  --color-terminal: #12110f;
+  --color-terminal-ink: #e6e1d6;
+
+  --animate-marquee: marquee 40s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+
+/* Page can't scroll behind an open palette or terminal. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Reserve the scrollbar's space so locking scroll under a dialog doesn't shift the page. */
+  scrollbar-gutter: stable;
+}
+
+/* Filter, expand and collapse re-flow the project grid through the View Transitions API. */
+::view-transition-group(*) {
+  animation-duration: 450ms;
+  animation-timing-function: var(--ease-smooth);
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 250ms;
+}
+
+/* The root never cross-fades: theme switches animate a clip-path from JS instead. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Project cards are named only during a filter change (set in ProjectsSection). */
+:root[data-vt='projects'] .vt-card {
+  view-transition-name: var(--vt-name);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
