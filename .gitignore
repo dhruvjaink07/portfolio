@@ -67,3 +67,12 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Next.js / Cloudflare
+.next/
+.open-next/
+.wrangler/
+.dev.vars
+next-env.d.ts
+*.tsbuildinfo
+dist/
