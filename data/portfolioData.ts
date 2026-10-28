@@ -133,7 +133,7 @@ export const profile: Profile = {
   headline: 'Cross-platform mobile apps, and the cloud systems behind them.',
   bio: 'Software Engineer specializing in cross-platform mobile development and scalable cloud infrastructure. I architect end-to-end systems for startups, from GCP and Firebase backends to App Store releases, and have shipped enterprise apps used by nationwide workforces (e.g., Sun Pharma). I take full ownership of complex problems and deliver production-ready software.',
   image: '/assets/dhruvjain.jpg',
-  cv: '/assets/resume.pdf',
+  cv: '/assets/Dhruv_Jain_Resume.pdf',
   stats: {
     experience: '1.5+',
     rating: '95.58%',

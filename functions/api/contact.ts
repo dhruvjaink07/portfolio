@@ -1,7 +1,13 @@
-import { getCloudflareContext } from '@opennextjs/cloudflare';
+interface Env {
+  RESEND_API_KEY?: string;
+  CONTACT_TO_EMAIL?: string;
+}
 
-// Without a verified domain, Resend only delivers from resend.dev to the
-// Resend account's own address, so CONTACT_TO_EMAIL must be that address.
+interface EventContext {
+  request: Request;
+  env: Env;
+}
+
 const FROM = 'Portfolio contact <onboarding@resend.dev>';
 
 const LIMITS = { name: 100, email: 254, subject: 150, message: 5000 } as const;
@@ -12,7 +18,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const json = (data: unknown, status = 200) => Response.json(data, { status });
 const singleLine = (s: string) => s.replace(/[\r\n]+/g, ' ');
 
-export async function POST(request: Request) {
+export async function onRequestPost({ request, env }: EventContext): Promise<Response> {
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -34,7 +40,6 @@ export async function POST(request: Request) {
   }
   if (!EMAIL_RE.test(fields.email)) return json({ error: 'Please enter a valid email address.' }, 400);
 
-  const { env } = getCloudflareContext();
   if (!env.RESEND_API_KEY || !env.CONTACT_TO_EMAIL) {
     console.error('Contact form is not configured: RESEND_API_KEY or CONTACT_TO_EMAIL missing');
     return json({ error: 'The contact form is not configured yet.' }, 503);
@@ -61,3 +66,4 @@ export async function POST(request: Request) {
   }
   return json({ ok: true });
 }
+

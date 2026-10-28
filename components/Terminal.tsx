@@ -148,9 +148,9 @@ export default function Terminal({ open, onClose }: { open: boolean; onClose: ()
         case 'resume': {
           const a = document.createElement('a');
           a.href = profile.cv;
-          a.download = '';
+          a.download = 'Dhruv_Jain_Resume.pdf';
           a.click();
-          print('Downloading resume.pdf …', 'ok');
+          print('Downloading Dhruv_Jain_Resume.pdf …', 'ok');
           break;
         }
         case 'theme':

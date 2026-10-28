@@ -54,7 +54,7 @@ export default function HeroBento() {
               <SectionLink section="projects" className={pillClass}>
                 Projects ↓
               </SectionLink>
-              <a href={profile.cv} download className={pillClass}>
+              <a href={profile.cv} download="Dhruv_Jain_Resume.pdf" className={pillClass}>
                 Resume ↗
               </a>
             </div>

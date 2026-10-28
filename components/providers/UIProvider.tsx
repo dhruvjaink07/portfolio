@@ -96,7 +96,7 @@ export default function UIProvider({ children }: { children: ReactNode }) {
         run: () => {
           const a = document.createElement('a');
           a.href = profile.cv;
-          a.download = '';
+          a.download = 'Dhruv_Jain_Resume.pdf';
           a.click();
         },
       },
