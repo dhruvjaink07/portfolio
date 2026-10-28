@@ -2,7 +2,9 @@
 
 import { useState, type FormEvent } from 'react';
 import { contact } from '@/data/portfolioData';
+import { sectionNumber } from '@/lib/sections';
 import BentoTile, { TileLabel } from './BentoTile';
+import EmailText from './EmailText';
 
 type Status = { state: 'idle' | 'sending' | 'sent' } | { state: 'error'; message: string };
 
@@ -42,7 +44,7 @@ export default function ContactSection() {
     <section id="contact" aria-labelledby="contact-title" className="scroll-mt-8 pb-[clamp(4rem,10vw,8rem)]">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         <BentoTile inverse className="lg:col-span-5">
-          <TileLabel>Contact</TileLabel>
+          <TileLabel>{sectionNumber('contact')} — Contact</TileLabel>
           <div className="mt-10">
             <h2
               id="contact-title"
@@ -56,9 +58,9 @@ export default function ContactSection() {
           </div>
           <a
             href={`mailto:${contact.email}`}
-            className="mt-10 font-display text-lg font-semibold break-all underline-offset-4 hover:underline"
+            className="mt-10 font-display text-lg font-semibold break-words underline-offset-4 hover:underline"
           >
-            {contact.email}
+            <EmailText email={contact.email} />
           </a>
         </BentoTile>
 

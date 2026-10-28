@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { CSSProperties } from 'react';
 import type { Project } from '@/data/portfolioData';
 import LabeledPoint from './LabeledPoint';
@@ -17,12 +18,14 @@ const SIZE_CLASS: Record<CardSize, string> = {
 interface ProjectCardProps {
   project: Project;
   size: CardSize;
+  // Position in the full list as "01", "02"…; stays fixed when filtering.
+  number: string;
   onToggle: (id: number) => void;
 }
 
 // Links sit above the card-wide toggle overlay, so they stay independently clickable.
 const linkClass =
-  'relative z-10 underline-offset-4 transition-colors duration-300 ease-smooth hover:underline';
+  'relative z-10 -my-2 inline-block py-2 underline-offset-4 transition-colors duration-300 ease-smooth hover:underline';
 
 function Links({ title, liveUrl, codeUrl }: Pick<Project, 'title' | 'liveUrl' | 'codeUrl'>) {
   if (!liveUrl && !codeUrl) return null;
@@ -52,6 +55,26 @@ function TechList({ technologies }: { technologies: string[] }) {
   );
 }
 
+// The card's focal visual: the owner's screenshot when there is one, otherwise the
+// project number as an outlined display numeral.
+function Visual({ image, title, number, className = '' }: { image?: string; title: string; number: string; className?: string }) {
+  if (image) {
+    return (
+      <div className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line ${className}`}>
+        <Image src={image} alt={`${title} screenshot`} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover object-top" />
+      </div>
+    );
+  }
+  return (
+    <span
+      aria-hidden="true"
+      className={`font-display text-[clamp(6rem,13vw,10rem)] leading-[0.8] font-semibold tracking-tight text-transparent tabular-nums opacity-25 [-webkit-text-stroke:1.5px_var(--color-ink)] ${className}`}
+    >
+      {number}
+    </span>
+  );
+}
+
 // Category label, with an "Ongoing" badge for projects still in progress.
 function CategoryLabel({ category, ongoing }: Pick<Project, 'category' | 'ongoing'>) {
   return (
@@ -64,8 +87,8 @@ function CategoryLabel({ category, ongoing }: Pick<Project, 'category' | 'ongoin
   );
 }
 
-export default function ProjectCard({ project, size, onToggle }: ProjectCardProps) {
-  const { id, title, description, technologies, category, icon, ongoing, highlights, codeUrl, liveUrl } = project;
+export default function ProjectCard({ project, size, number, onToggle }: ProjectCardProps) {
+  const { id, title, description, technologies, category, image, ongoing, highlights, codeUrl, liveUrl } = project;
   const expanded = size === 'expanded';
   const big = size === 'big';
 
@@ -84,7 +107,7 @@ export default function ProjectCard({ project, size, onToggle }: ProjectCardProp
     <li
       id={`project-${id}`}
       style={{ '--vt-name': `project-${id}` } as CSSProperties}
-      className={`vt-card relative flex scroll-mt-8 flex-col justify-between gap-8 rounded-3xl border bg-surface p-6 transition-[translate,border-color] duration-500 ease-smooth hover:-translate-y-1 ${
+      className={`vt-card reveal relative flex scroll-mt-8 flex-col justify-between gap-8 rounded-3xl border bg-surface p-6 transition-[translate,border-color] duration-500 ease-smooth hover:-translate-y-1 ${
         expanded ? 'border-ink/40' : 'border-line hover:border-ink/30'
       } ${SIZE_CLASS[size]}`}
     >
@@ -113,9 +136,7 @@ export default function ProjectCard({ project, size, onToggle }: ProjectCardProp
             <Links title={title} liveUrl={liveUrl} codeUrl={codeUrl} />
           </div>
           <div className="flex flex-col justify-between gap-8">
-            <span aria-hidden="true" className="text-[clamp(5rem,10vw,8rem)] leading-none">
-              {icon}
-            </span>
+            <Visual image={image} title={title} number={number} className="lg:self-end" />
             <div>
               <p className="mb-3 text-xs tracking-[0.2em] text-muted uppercase">Stack</p>
               <TechList technologies={technologies} />
@@ -127,11 +148,9 @@ export default function ProjectCard({ project, size, onToggle }: ProjectCardProp
           <div>
             <div className="flex items-center justify-between gap-3 text-xs tracking-[0.2em] text-muted uppercase">
               <CategoryLabel category={category} ongoing={ongoing} />
-              {!big && (
-                <span aria-hidden="true" className="text-2xl">
-                  {icon}
-                </span>
-              )}
+              <span aria-hidden="true" className="tabular-nums">
+                {number}
+              </span>
             </div>
             <h3
               className={`mt-6 font-display leading-[1.05] font-semibold tracking-tight ${
@@ -140,18 +159,16 @@ export default function ProjectCard({ project, size, onToggle }: ProjectCardProp
             >
               {toggleButton}
             </h3>
-            <p className={`mt-4 text-sm leading-relaxed text-muted ${big ? 'max-w-prose md:text-base' : ''}`}>
+            {/* Clamped on phones; tapping the card expands it to the full text. */}
+            <p className={`mt-4 text-sm leading-relaxed text-muted max-md:line-clamp-4 ${big ? 'max-w-prose md:text-base' : ''}`}>
               {description}
             </p>
           </div>
 
-          {/* The feature tile spans two rows; an oversized mark gives it a focal point. */}
+          {/* The feature tile spans two rows; an oversized visual gives it a focal point. */}
           {big && (
-            <div
-              aria-hidden="true"
-              className="hidden flex-1 items-center justify-center text-[clamp(5rem,10vw,8rem)] leading-none lg:flex"
-            >
-              {icon}
+            <div className="hidden flex-1 items-end justify-end lg:flex">
+              <Visual image={image} title={title} number={number} />
             </div>
           )}
 

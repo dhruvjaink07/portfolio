@@ -79,7 +79,7 @@ export default function Nav() {
                   section={s.id}
                   data-section={s.id}
                   aria-current={isActive ? 'location' : undefined}
-                  className={`block rounded-full px-2.5 py-2 text-[0.65rem] tracking-wider uppercase transition-colors duration-300 ease-spring sm:px-4 sm:text-xs ${
+                  className={`block rounded-full px-2.5 py-3 text-[0.65rem] tracking-wider uppercase transition-colors duration-300 ease-spring sm:px-4 sm:py-2 sm:text-xs ${
                     isActive ? 'text-canvas' : 'text-muted hover:text-ink'
                   }`}
                 >

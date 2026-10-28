@@ -1,7 +1,8 @@
 import { education, isCurrent, workExperience, type TimelineEntry } from '@/data/portfolioData';
 import BentoTile, { TileLabel } from './BentoTile';
-import LabeledPoint from './LabeledPoint';
+import SectionHeading from './SectionHeading';
 import { TechChip } from './TechIcon';
+import TimelinePoints from './TimelinePoints';
 
 function Timeline({ entries }: { entries: TimelineEntry[] }) {
   return (
@@ -17,13 +18,7 @@ function Timeline({ entries }: { entries: TimelineEntry[] }) {
           <p className="text-xs tracking-[0.2em] text-muted uppercase tabular-nums">{entry.period}</p>
           <h3 className="mt-2 font-display text-2xl leading-tight font-semibold tracking-tight">{entry.heading}</h3>
           <p className="mt-1 text-sm text-muted">{entry.organization}</p>
-          <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted">
-            {entry.points.map(point => (
-              <li key={point}>
-                <LabeledPoint text={point} />
-              </li>
-            ))}
-          </ul>
+          <TimelinePoints points={entry.points} />
           {entry.technologies && (
             <ul aria-label="Technologies" className="mt-4 flex flex-wrap gap-2">
               {entry.technologies.map(tech => (
@@ -41,13 +36,7 @@ export default function ExperienceSection() {
   return (
     <section id="about" aria-labelledby="about-title" className="scroll-mt-8 pt-[clamp(4rem,10vw,8rem)]">
       <header className="mb-10">
-        <p className="text-xs tracking-[0.2em] text-muted uppercase">Background</p>
-        <h2
-          id="about-title"
-          className="mt-3 font-display text-[clamp(2.25rem,6vw,4rem)] leading-[1.05] font-semibold tracking-tight"
-        >
-          Experience
-        </h2>
+        <SectionHeading section="about" eyebrow="Background" title="Experience" />
       </header>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">

@@ -53,6 +53,29 @@
   }
 }
 
+/*
+ * Scroll reveal: tiles fade and rise as they enter the viewport, driven by scroll
+ * position rather than timers, so they naturally stagger down the page. Uses
+ * `transform` (hover lifts use `translate`), so the two never fight. Browsers
+ * without scroll-driven animations, and reduced-motion users, just see the tiles.
+ */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.985);
+  }
+}
+
+@utility reveal {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
 /* Page can't scroll behind an open palette or terminal. */
 html:has(dialog[open]) {
   overflow: hidden;

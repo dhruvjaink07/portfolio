@@ -3,6 +3,7 @@
 import { skillGroups, topSkills, type Skill, type SkillGroup, type SkillLevel } from '@/data/portfolioData';
 import { employersUsing } from '@/lib/skills';
 import BentoTile, { TileLabel } from './BentoTile';
+import SectionHeading from './SectionHeading';
 import TechIcon from './TechIcon';
 
 const LEVELS: SkillLevel[] = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'];
@@ -31,7 +32,7 @@ function LevelMeter({ level }: { level: SkillLevel }) {
 function SkillRow({ skill }: { skill: Skill }) {
   const employers = employersUsing(skill.name);
   return (
-    <li className="flex flex-col border-b border-line py-4 last:border-b-0">
+    <li className="flex flex-col border-b border-line py-3 last:border-b-0 sm:py-4">
       <span className="flex items-center justify-between gap-4">
         <span className="flex items-center gap-2.5">
           <TechIcon name={skill.name} size={18} />
@@ -39,7 +40,8 @@ function SkillRow({ skill }: { skill: Skill }) {
         </span>
         <LevelMeter level={skill.level} />
       </span>
-      <span className="mt-1 text-xs leading-relaxed text-muted">{skill.description}</span>
+      {/* Descriptions are hidden on phones, where 26 of them made the section several screens long. */}
+      <span className="mt-1 hidden text-xs leading-relaxed text-muted sm:block">{skill.description}</span>
       {employers.length > 0 && (
         <span className="mt-1.5 text-[0.65rem] tracking-wider text-ink uppercase">Used at {employers.join(' · ')}</span>
       )}
@@ -53,13 +55,7 @@ export default function SkillsSection() {
   return (
     <section id="skills" aria-labelledby="skills-title" className="scroll-mt-8 pb-[clamp(4rem,10vw,8rem)]">
       <header className="mb-10">
-        <p className="text-xs tracking-[0.2em] text-muted uppercase">Toolkit</p>
-        <h2
-          id="skills-title"
-          className="mt-3 font-display text-[clamp(2.25rem,6vw,4rem)] leading-[1.05] font-semibold tracking-tight"
-        >
-          Skills
-        </h2>
+        <SectionHeading section="skills" eyebrow="Toolkit" title="Skills" />
       </header>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">

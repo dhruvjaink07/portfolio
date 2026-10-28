@@ -5,6 +5,7 @@ import { flushSync } from 'react-dom';
 import { projectCategories, projects, type ProjectCategory } from '@/data/portfolioData';
 import { prefersReducedMotion } from '@/lib/sections';
 import ProjectCard, { type CardSize, type TileSize } from './ProjectCard';
+import SectionHeading from './SectionHeading';
 
 type Filter = 'all' | ProjectCategory;
 
@@ -97,15 +98,7 @@ export default function ProjectsSection() {
   return (
     <section id="projects" aria-labelledby="projects-title" className="scroll-mt-8 py-[clamp(4rem,10vw,8rem)]">
       <header className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-xs tracking-[0.2em] text-muted uppercase">Selected work</p>
-          <h2
-            id="projects-title"
-            className="mt-3 font-display text-[clamp(2.25rem,6vw,4rem)] leading-[1.05] font-semibold tracking-tight"
-          >
-            Projects
-          </h2>
-        </div>
+        <SectionHeading section="projects" eyebrow="Selected work" title="Projects" />
 
         <div role="group" aria-label="Filter projects" className="flex flex-wrap gap-2">
           {FILTERS.map(cat => {
@@ -129,7 +122,13 @@ export default function ProjectsSection() {
 
       <ul className="grid grid-flow-dense grid-cols-1 gap-4 md:grid-cols-2 lg:auto-rows-[minmax(15rem,auto)] lg:grid-cols-4">
         {visible.map((project, i) => (
-          <ProjectCard key={project.id} project={project} size={sizes[i]} onToggle={toggle} />
+          <ProjectCard
+            key={project.id}
+            project={project}
+            size={sizes[i]}
+            number={String(projects.indexOf(project) + 1).padStart(2, '0')}
+            onToggle={toggle}
+          />
         ))}
       </ul>
     </section>

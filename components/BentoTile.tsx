@@ -9,7 +9,7 @@ interface BentoTileProps {
 }
 
 const base =
-  'relative flex flex-col justify-between overflow-hidden rounded-3xl border transition-[translate,border-color,filter] duration-500 ease-spring hover:-translate-y-1';
+  'reveal relative flex flex-col justify-between overflow-hidden rounded-3xl border transition-[translate,border-color,filter] duration-500 ease-spring hover:-translate-y-1';
 
 export default function BentoTile({
   as: Tag = 'div',

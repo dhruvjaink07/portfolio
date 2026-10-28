@@ -13,6 +13,19 @@ const githubUser = new URL(profile.social.github).pathname.replace(/\//g, '');
 const pillClass =
   'rounded-full border border-line-strong px-4 py-2 text-xs tracking-wider uppercase transition-[border-color,translate] duration-500 ease-spring hover:-translate-y-0.5 hover:border-ink';
 
+// Sets the emphasised word in Fraunces italic, at a lighter weight for contrast.
+function Headline({ text, emphasis }: { text: string; emphasis?: string }) {
+  const at = emphasis ? text.indexOf(emphasis) : -1;
+  if (!emphasis || at === -1) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, at)}
+      <em className="font-normal italic">{emphasis}</em>
+      {text.slice(at + emphasis.length)}
+    </>
+  );
+}
+
 function StatTile({ value, label }: { value: string; label: string }) {
   return (
     <BentoTile padded={false} className="col-span-1 p-5 lg:p-6">
@@ -46,7 +59,7 @@ export default function HeroBento() {
             id="hero-title"
             className="mt-10 max-w-[18ch] font-display text-[clamp(2.5rem,6.5vw,5.25rem)] leading-[0.98] font-semibold tracking-tight"
           >
-            {profile.headline}
+            <Headline text={profile.headline} emphasis={profile.headlineEmphasis} />
           </h1>
           <div className="mt-10 flex flex-wrap items-end justify-between gap-4">
             <p className="text-xs tracking-[0.2em] text-muted uppercase">{profile.title}</p>
@@ -139,16 +152,20 @@ export default function HeroBento() {
 
         <BentoTile className="col-span-2 md:col-span-4 lg:col-span-6">
           <TileLabel>GitHub activity</TileLabel>
-          {/* External SVG chart; plain <img> since it needs no optimisation. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`https://ghchart.rshah.org/1a1814/${githubUser}`}
-            alt={`${profile.name}'s GitHub contribution chart`}
-            width={663}
-            height={104}
-            loading="lazy"
-            className="mt-6 h-auto w-full dark:invert"
-          />
+          {/* Too small to read when squeezed onto a phone, so it scrolls sideways there,
+              starting at the right (rtl) where the most recent weeks are. */}
+          <div className="mt-6 -mx-6 overflow-x-auto px-6 [direction:rtl] [scrollbar-width:none] md:mx-0 md:px-0">
+            {/* External SVG chart; plain <img> since it needs no optimisation. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://ghchart.rshah.org/1a1814/${githubUser}`}
+              alt={`${profile.name}'s GitHub contribution chart`}
+              width={663}
+              height={104}
+              loading="lazy"
+              className="h-auto w-full max-w-none min-w-[600px] md:min-w-0 dark:invert"
+            />
+          </div>
         </BentoTile>
       </div>
     </section>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { SocialPlatform } from '@/data/portfolioData';
 import BentoTile, { TileLabel } from './BentoTile';
+import EmailText from './EmailText';
 
 const SOCIAL_LABELS: Record<SocialPlatform, string> = {
   github: 'GitHub',
@@ -37,9 +38,9 @@ export default function CopyEmailTile({ email, social, className = '' }: CopyEma
       <div className="mt-6 flex items-center justify-between gap-4">
         <a
           href={`mailto:${email}`}
-          className="min-w-0 font-display text-lg leading-snug font-semibold break-all transition-colors duration-300 ease-spring hover:text-muted"
+          className="min-w-0 font-display text-lg leading-snug font-semibold break-words transition-colors duration-300 ease-spring hover:text-muted"
         >
-          {email}
+          <EmailText email={email} />
         </a>
         <button
           type="button"
@@ -53,14 +54,14 @@ export default function CopyEmailTile({ email, social, className = '' }: CopyEma
         {status === 'copied' ? 'Email address copied' : status === 'failed' ? 'Copy failed, use the email link instead' : ''}
       </p>
 
-      <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-xs tracking-wider uppercase">
+      <ul className="mt-4 flex flex-wrap gap-x-4 text-xs lg:mt-6 lg:gap-y-1 tracking-wider uppercase">
         {(Object.entries(social) as [SocialPlatform, string][]).map(([platform, url]) => (
           <li key={platform}>
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted transition-colors duration-300 ease-spring hover:text-ink"
+              className="inline-block py-3 text-muted lg:py-1 transition-colors duration-300 ease-spring hover:text-ink"
             >
               {SOCIAL_LABELS[platform]} ↗
             </a>

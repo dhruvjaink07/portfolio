@@ -6,7 +6,8 @@ export default function Footer() {
       <p>
         © {new Date().getFullYear()} {profile.name}
       </p>
-      <p>
+      {/* Keyboard shortcuts mean nothing on a phone. */}
+      <p className="hidden sm:block">
         <kbd>⌘K</kbd> for commands · <kbd>Ctrl `</kbd> for something else
       </p>
     </footer>

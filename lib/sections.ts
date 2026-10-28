@@ -9,6 +9,10 @@ export const SECTIONS = [
 
 export type SectionId = (typeof SECTIONS)[number]['id'];
 
+// Editorial "01", "02"… for section eyebrows; Home is the cover, so numbering starts after it.
+export const sectionNumber = (id: SectionId) =>
+  String(SECTIONS.findIndex(s => s.id === id)).padStart(2, '0');
+
 // Fired before a programmatic jump so the nav can hold the target active
 // instead of flicking through every section the scroll passes.
 export const SECTION_NAVIGATE_EVENT = 'section:navigate';

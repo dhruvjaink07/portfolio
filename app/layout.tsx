@@ -6,8 +6,11 @@ import UIProvider from '@/components/providers/UIProvider';
 import { profile, siteMeta } from '@/data/portfolioData';
 import './globals.css';
 
-const display = Fraunces({ subsets: ['latin'], variable: '--font-fraunces', display: 'swap' });
+const display = Fraunces({ subsets: ['latin'], style: ['normal', 'italic'], variable: '--font-fraunces', display: 'swap' });
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains', display: 'swap' });
+
+// Rendered from the site's own fonts and palette; regenerate if the headline changes.
+const ogImage = { url: siteMeta.ogImage, width: 1200, height: 630, alt: `${profile.name}: ${profile.headline}` };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMeta.url),
@@ -20,13 +23,13 @@ export const metadata: Metadata = {
     url: siteMeta.url,
     title: siteMeta.title,
     description: siteMeta.description,
-    images: [siteMeta.ogImage],
+    images: [ogImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteMeta.title,
     description: siteMeta.description,
-    images: [siteMeta.ogImage],
+    images: [ogImage],
   },
 };
 

@@ -22,6 +22,8 @@ export interface Profile {
   name: string;
   title: string;
   headline: string;
+  // A word or phrase from `headline` set in italic for emphasis; must appear in it verbatim.
+  headlineEmphasis?: string;
   bio: string;
   image: string;
   cv: string;
@@ -71,8 +73,8 @@ export interface Project {
   description: string;
   technologies: string[];
   category: ProjectCategory;
-  color: string;
-  icon: string;
+  // Screenshot or mockup under /public, shown on the card when present (owner to supply).
+  image?: string;
   ongoing?: boolean;
   // "Label: detail" lines, shown only when the card is expanded.
   highlights?: string[];
@@ -124,13 +126,14 @@ export const siteMeta: SiteMeta = {
   keywords: ['Mobile App Developer', 'Flutter', 'Dart', 'iOS', 'Android', 'Software Engineer', 'Portfolio'],
   url: 'https://dhruvjaink07.github.io/',
   // TODO: replace the Unsplash stock photo with a real preview image of the site.
-  ogImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop',
+  ogImage: '/og.png',
 };
 
 export const profile: Profile = {
   name: 'Dhruv Jain',
   title: 'Software Engineer | Mobile & Cloud Architecture',
   headline: 'Cross-platform mobile apps, and the cloud systems behind them.',
+  headlineEmphasis: 'cloud',
   bio: 'Software Engineer specializing in cross-platform mobile development and scalable cloud infrastructure. I architect end-to-end systems for startups, from GCP and Firebase backends to App Store releases, and have shipped enterprise apps used by nationwide workforces (e.g., Sun Pharma). I take full ownership of complex problems and deliver production-ready software.',
   image: '/assets/dhruvjain.jpg',
   cv: '/assets/resume.pdf',
@@ -293,8 +296,6 @@ export const projects: Project[] = [
     description: 'Infrastructureless, off-grid mobile navigation and peer-to-peer mesh network engineered for wilderness expeditions. Pairs native Jetpack Compose and MapLibre offline PMTiles rendering with an embedded Go routing daemon (libroam_agent.so), enabling autonomous BLE discovery, zero-footprint Wi-Fi Direct star mesh relays, resumable P2P vector tile streaming, GPS breadcrumb retracing, and decentralized emergency SOS broadcasting.',
     technologies: ['Kotlin', 'Go', 'Jetpack Compose', 'MapLibre', 'BLE', 'Wi-Fi Direct', 'gRPC'],
     category: 'mobile',
-    color: '#CCFBF1',
-    icon: '🧭',
     ongoing: true,
     highlights: [
       'Dual-tier architecture: a native Android app (Jetpack Compose, MapLibre Native) paired with an embedded Go routing daemon (libroam_agent.so) over local gRPC/IPC.',
@@ -310,8 +311,6 @@ export const projects: Project[] = [
     description: 'Resilience testing platform that injects controlled faults across microservices, web frontends, and Android APKs using an adaptive binary-search algorithm to identify breaking thresholds and compute metrics like blast radius, cascade depth, and recovery time.',
     technologies: ['Go', 'Docker', 'Prometheus', 'REST'],
     category: 'backend',
-    color: '#DBEAFE',
-    icon: '🛡️',
     codeUrl: 'https://github.com/dhruvjaink07/FailSafe',
   },
   {
@@ -320,8 +319,6 @@ export const projects: Project[] = [
     description: 'AI-powered Kanban platform that converts natural-language prompts into structured task boards via Gemini LLM, with Deerflow a built-in analytics engine for productivity insights.',
     technologies: ['Flutter', 'Gemini LLM', 'Firebase'],
     category: 'mobile',
-    color: '#FEF08A',
-    icon: '📋',
   },
   {
     id: 1,
@@ -329,8 +326,6 @@ export const projects: Project[] = [
     description: 'Architected an interactive medical data visualization suite specifically optimized for iPad environments. Integrated robust local data persistence, real-time Sentry.io crash reporting, and Google Analytics to track user engagement.',
     technologies: ['Flutter', 'Dart', 'XCode', 'Sentry.io', 'Analytics'],
     category: 'mobile',
-    color: '#E9D5FF',
-    icon: '💊',
   },
   {
     id: 6,
@@ -338,8 +333,6 @@ export const projects: Project[] = [
     description: 'First professional client delivery iPad medical app with data persistence, crash monitoring via Sentry.io, distributed through App Store Connect.',
     technologies: ['Flutter', 'Sentry.io', 'Google Analytics'],
     category: 'mobile',
-    color: '#FCE7F3',
-    icon: '⚕️',
   },
 ];
 

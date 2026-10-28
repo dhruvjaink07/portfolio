@@ -16,6 +16,8 @@ description: Triggers when building, migrating, laying out or styling the Next.j
 ## 2. Content Integrity
 - **All copy comes from `/data/portfolioData.ts`.** Never invent headlines, metrics, years of experience, technologies or status lines. If a layout needs copy that doesn't exist, add a field to the data file and flag it for the owner to confirm.
 - Links render only when a real URL exists; no placeholders.
+- Project visuals come from the owner's screenshots (`image` in the data). Without one, the card shows its outlined number. No emoji.
+- The OG image `public/og.png` is rendered from the headline; regenerate it whenever the headline changes.
 
 ## 3. Structural Fluidity & Layout Architecture
 - **Asymmetric Bento Matrix:** No uniform 3×3 blocks. Landing views use multi-column, multi-row spans (`md:col-span-2`, `lg:row-span-2`) with varying aspect ratios to create deliberate focal tiles. Grids must fill without orphaned empty cells.
@@ -33,5 +35,9 @@ description: Triggers when building, migrating, laying out or styling the Next.j
 - Always respect `prefers-reduced-motion`.
 
 ## 6. Palette
-- Light: canvas `#f9f9fb`, ink `#111215`, line `#e4e5e9`. Dark: canvas `#0d0e12`, ink `#d1d5db`, line `rgba(255,255,255,0.08)`.
-- No neon or purple/blue gradients. A single semantic status dot (emerald) is the only saturated colour.
+- Warm paper, strictly monochrome: ink is the only emphasis colour. The owner tried blue, orange, moss and Klein-blue accents and rejected a third colour; don't add one.
+- Light: canvas `#f3efe7`, surface `#fbf9f5`, ink `#1a1814`, muted `#6b655b`, line-strong `#e3ddd1`. Dark: canvas `#12110f`, surface `#1a1916`, ink `#e6e1d6`, muted `#9a9488`, line-strong `rgba(255,248,235,0.14)`.
+- A single semantic status dot (emerald) is the only saturated colour.
+
+## 7. Mobile
+- Check every change at 390px. Tap targets at least 40px tall on touch layouts; long copy is clamped or hidden on phones (project descriptions clamp until expanded, skill descriptions hide below `sm`), never removed from the data.
